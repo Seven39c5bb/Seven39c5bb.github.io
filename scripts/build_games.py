@@ -63,6 +63,12 @@ def review_body(record):
 
 
 def shared(document, post_count, tag_count, category_count):
+    document = re.sub(
+        r'<div class="menus_item"><a class="site-page" href="/(?:archives|tags|categories|comments|link)/">.*?</a></div>',
+        "", document, flags=re.S)
+    document = re.sub(
+        r'<div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i>.*?</ul></div>',
+        "", document, flags=re.S)
     if 'href="/games/"' not in document.split(MAIN_START)[0]:
         document = document.replace('<div class="menus_items">', '<div class="menus_items">' + MENU)
     for route, count in [("archives", post_count), ("tags", tag_count), ("categories", category_count)]:
