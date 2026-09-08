@@ -205,22 +205,4 @@
       <tag>游戏评测</tag>
     </tags>
   </entry>
-  <entry>
-    <title>second page</title>
-    <link href="/2025/06/09/second-page/" />
-    <url>/2025/06/09/second-page/</url>
-    <content type="html" />
-    <tags>
-      <tag> second </tag>
-    </tags>
-  </entry>
-  <entry>
-    <title>my first article</title>
-    <link href="/2025/06/08/2025-26-8-firstpage/" />
-    <url>/2025/06/08/2025-26-8-firstpage/</url>
-    <content type="html">&lt;h2 id="My-first-page"&gt;&lt;a href="#My-first-page" class="headerlink" title="My first page"&gt;&lt;/a&gt;My first page&lt;/h2&gt;</content>
-    <tags>
-      <tag> hexo </tag>
-    </tags>
-  </entry>
 </search>
