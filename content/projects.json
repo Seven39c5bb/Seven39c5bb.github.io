@@ -1,0 +1,11 @@
+[
+  {
+    "slug": "fiat-less",
+    "title": "失光 · Fiat Less",
+    "description": "一款融合卡牌构筑与网格战棋的类 Rogue 游戏。深入被异色极光吞噬的摩利亚湾，收集卡牌与遗物，在走位、距离与构筑之间寻找制胜之道。以20世纪初的复古氛围与怪诞手绘美学，呈现一个回响着古神低语的世界。",
+    "status": "即将推出",
+    "tags": ["卡牌构筑", "战棋", "类 Rogue", "洛夫克拉夫特式"],
+    "cover": "/img/projects/fiat-less/header.jpg",
+    "steam_url": "https://store.steampowered.com/app/4614120/Fiat_Less/"
+  }
+]

@@ -5,6 +5,8 @@ import re
 import xml.etree.ElementTree as ET
 from pathlib import Path
 
+from build_projects import add_projects
+
 
 ROOT = Path(__file__).resolve().parents[1]
 SITE_URL = "https://seven39c5bb.github.io"
@@ -217,6 +219,7 @@ def build():
         relative = path.relative_to(ROOT).as_posix()
         if relative not in outputs:
             outputs[relative] = path.read_text(encoding="utf-8")
+    add_projects(outputs, ROOT, template, make_page)
     for path, document in list(outputs.items()):
         if path.endswith(".html"):
             outputs[path] = shared(document, post_count, tag_count, category_count)
