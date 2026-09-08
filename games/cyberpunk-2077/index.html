@@ -1,0 +1,192 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>赛博朋克2077 — 迟到的年度游戏？ | Seven39c5bb</title><meta name="author" content="Seven39c5bb"><meta name="copyright" content="Seven39c5bb"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff">
+
+
+
+
+
+
+
+
+
+<link rel="shortcut icon" href="/img/favicon.png"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+
+
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+
+          const hour = new Date().getHours()
+          const isNight = hour <= 6 || hour >= 18
+          if (theme === undefined) isNight ? activateDarkMode() : activateLightMode()
+          else theme === 'light' ? activateLightMode() : activateDarkMode()
+
+
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+
+
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":230,"highlightFullpage":false,"highlightMacStyle":true},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: {"chs_to_cht":"已切换为繁体中文","cht_to_chs":"已切换为简体中文","day_to_night":"已切换为深色模式","night_to_day":"已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"top-center"},
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: "赛博朋克2077 — 迟到的年度游戏？",
+  isHighlightShrink: false,
+  isToc: false,
+  pageType: 'page'
+}</script><link rel="stylesheet" href="/css/custom.css" media="defer" onload="this.media='all'"><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-categories-card@1.0.0/lib/categorybar.css"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0">
+<link rel="canonical" href="https://seven39c5bb.github.io/games/cyberpunk-2077/">
+<meta name="description" content="“你是愿意当个无名之辈，一辈子安生，最后插着尿管死在床上？还是就算活不到三十岁，也要名留青史？”这款2020年发售的游戏，作为cpdr备受期待的巫师三的又一大作却在发售当日爆了大雷。数不清的bug，稀烂的优化，似乎各种原因都在给这部作品蒙上阴霾。但是在5年后的今天，在cpdr修改">
+<meta property="og:title" content="赛博朋克2077 — 迟到的年度游戏？">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://seven39c5bb.github.io/games/cyberpunk-2077/">
+<meta property="og:site_name" content="Seven39c5bb">
+<meta property="og:description" content="“你是愿意当个无名之辈，一辈子安生，最后插着尿管死在床上？还是就算活不到三十岁，也要名留青史？”这款2020年发售的游戏，作为cpdr备受期待的巫师三的又一大作却在发售当日爆了大雷。数不清的bug，稀烂的优化，似乎各种原因都在给这部作品蒙上阴霾。但是在5年后的今天，在cpdr修改">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="/css/games.css">
+<meta property="og:image" content="https://seven39c5bb.github.io/img/games/cyberpunk-2077/01.png">
+<meta property="article:published_time" content="2026-09-08T00:00:00+08:00">
+</head><body><div id="web_bg" style="background-image: url(https://pics-bed.vercel.app/img/Miku-bg.jpg);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/%E7%9B%B4%E6%92%AD1.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">10</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">3</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/games/"><i class="fa-fw fas fa-gamepad"></i><span> 游戏评测</span></a></div><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 列表List</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/comments/"><i class="fa-fw fas fa-envelope-open"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="page" id="body-wrap"><header class="not-home-page" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Seven39c5bb</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/games/"><i class="fa-fw fas fa-gamepad"></i><span> 游戏评测</span></a></div><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 列表List</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/comments/"><i class="fa-fw fas fa-envelope-open"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="page-site-info"><h1 id="site-title">赛博朋克2077 — 迟到的年度游戏？</h1></div></header><main class="layout" id="content-inner"><div id="page" class="game-review"><article>
+<div class="game-review-meta"><a href="/games/">游戏评测</a><span class="game-score">个人评分 7</span></div>
+<div class="game-import-note">Notion 原文更新：<time datetime="2025-10-03T14:09:38.621Z">2025-10-03</time> · 迁移至博客：<time datetime="2026-09-08">2026-09-08</time><br>保留原文观点与评分，文中的时间表述以原文写作时为准。可能包含剧透。</div>
+<div class="container game-review-body" id="article-container">
+<p>“你是愿意当个无名之辈，一辈子安生，最后插着尿管死在床上？还是就算活不到三十岁，也要名留青史？”这款2020年发售的游戏，作为cpdr备受期待的巫师三的又一大作却在发售当日爆了大雷。数不清的bug，稀烂的优化，似乎各种原因都在给这部作品蒙上阴霾。但是在5年后的今天，在cpdr修改了无数的bug，加上了各种补丁，新增了一个体量大的恐怖的dlc之后，甚至还以其为背景制作了一部系列动漫。随着好评率的不断上升，那么如果我们重新回看这个游戏，2077，到底是不是一款迟到的年度游戏？</p>
+<p>我相信最开始震撼到玩家的，一定是那庞大且又壮观的夜之城。那闪烁的霓虹灯，各种前所未见的高科技产物，无处不在的炫暗示广告，四处可见的灯红酒绿，冲向云霄的摩天大楼，每一个目所能及的范围都在淋漓尽致的向你展现了这个赛博世界的顶级景象。</p>
+<p>游戏的美术堆量非常恐怖，整体风格呈黯淡的色调，以蓝黄红为基础底色，勾勒出了一幅颇具未来感的赛博城市，UI做的非常统一，且具有很强的科技感。音乐质量毋庸置疑非常高，对整体的剧情和情绪烘托上可圈可点，也出了很多出圈的神曲，想象一下开着车听着电台在夜之城遨游的感觉，在这一刻游戏中的沉浸感达到了顶峰。</p>
+<figure><img src="/img/games/cyberpunk-2077/01.png" alt="赛博朋克2077 — 迟到的年度游戏？ 游戏截图" loading="lazy" decoding="async"></figure>
+<p>游戏中的内容和细节非常丰富，游戏内有多种攻击手段，并可以通过你的技能树加点组合出不同的功能和玩法，通过不同的加点可以跳过相当一部分的剧情解密。我最喜欢的还是用螳螂刀近战和敌人近身搏斗拼个你死我活，享受割草的快感，当然你也可以选择使用枪械或者使用赛博法术—黑客系统来远程操控器械攻击敌人，亦或是直接将敌人击倒。游戏中还有相当多的车辆供你驾驶，不同的车型的驾驶手感也大不相同。但是最后只要攒到足够的钱，都会屈服在石中剑的驾驶体验 下。</p>
+<p>再说一下剧情内容吧，让我比较惊喜的一点是2077的剧情体验有一个超梦系统的设计，可以通过录像切身回溯到过去的场景进行体验，在其中找寻线索并推进剧情。游戏中的cg非常精致，使得很多的剧情体验非常优秀，像强尼在油田坟墓中的自白，还有百灵鸟剧情中惊险刺激的追逐战，有相当一部分的支线剧情也非常精彩，基于选的角色性别，还有不同可攻略的不同性别对象（包括男同女同）。</p>
+<figure><img src="/img/games/cyberpunk-2077/02.png" alt="大平头来咯" loading="lazy" decoding="async"><figcaption>大平头来咯</figcaption></figure>
+<p>优点夸完了，接下来就是但是环节了，游戏虽然有很多套战斗系统，但是实际上的战斗体验其实非常不好，最开始使用的枪械类型，击打到敌人的反馈很弱，爆头也没有像其他fps一样有很强烈的反馈。相对来说近战系统还有处决这一项，所以体感上会好那么一些。但是整体的战斗流程极其无聊，敌人的行动逻辑非常痴呆，基本就是对着敌人的方向一直按住不放就行，很难称得上有一点交互性。</p>
+<p>游戏中的驾驶系统手感非常稀烂，开的车在路上经常打滑，很难控制，但是游戏中的各种剧情跑图又需要开车，这点上让我温度升高的次数不算少数。其中最让我红温的是驾车追逐战，一边开着手感稀烂的车躲避障碍，一边还要分心去攻击后方的敌人，车被打中的次数多了还会爆炸，玩这个能不喷两句的感觉都是圣人了。</p>
+<figure><img src="/img/games/cyberpunk-2077/03.png" alt="赛博朋克2077 — 迟到的年度游戏？ 游戏截图" loading="lazy" decoding="async"></figure>
+<p>夜之城虽然庞大，但是仔细探索以后似乎就没什么好探索的地方，游戏近乎完全由任务引导，主线，支线，任务清点，几乎所有在地图上都给你做了标点，除此之外的地方几乎没有探索的乐趣，并且任务又多又杂，绝大一部分清点的任务属于是看一眼就会犯恶心。夜之城并不像开放世界，更像一个个跟随着游戏任务进行的连接的精致箱庭。太多的建筑和道路过于复杂，在70h的游玩时间中，我几乎记不住任何一条路，无比依赖于游戏中的导航系统，导致在赶路的时候根本无暇去欣赏美丽的景色。Npc没有过多的互动，除了任务可能会和你说两句话，其他时候就是纯人机。在一款强调沉浸感的游戏中，真实感是很重要的一点，而我在夜之城中并没感受到太多。如果对比起大表哥2那更是不用说了，属于是降维打击了。</p>
+<figure><img src="/img/games/cyberpunk-2077/04.png" alt="著名景点" loading="lazy" decoding="async"><figcaption>著名景点</figcaption></figure>
+<p>游戏中的收集主要围绕着不朽武器展开，在游戏的最开始可能在一些主线任务中找到会非常惊喜，因为这些武器在前期相对会比较强并且藏的比较不明显很容易错过。但是随着游戏的进行到中期以后，不朽武器基本就只会作为任务奖励获取，并且得到以后基本也只能用来收藏，基本无法用于战斗，而且带来的收藏满足感并没有这么强，毕竟这种东西就是比较强调获得时带来的惊喜感，统一放在任务中作为任务奖励就会显得非常廉价。</p>
+<figure><img src="/img/games/cyberpunk-2077/05.png" alt="whatcanisay" loading="lazy" decoding="async"><figcaption>whatcanisay</figcaption></figure>
+<p>再说说剧情方面吧，我最不理解的一点就是最开始杰克的剧情，莫名其妙主角就和他成至交好友了？直到他死的时候我也没什么感受，一切的感觉就是V的情感有些莫名其妙。V并不像我最开始想象的那样的传统硬汉形象，而是很带有些孩子气，而我非常期待的强尼银手到最后的背景揭开给我带来的感觉则是：就这？一系列的人物塑造下来，我最喜欢的还是那个义体医生维克托。剧情对话中有着非常多的无意义选项，其中选择不同的对话不会影响到整体剧情，我非常讨厌这种设计，这种毫无意义的对话选项在如今的二游中也屡屡出现，对我来说存在的意义就是消耗我的精力。这点上就不得不提及博德3了，博德3大部分的选项都是有意义的，不同的选项会影响剧情，和人物的关系，有时候也能获得一些技能点数。</p>
+<p>上述给我带来的最大感受是，一切的一切都设计的太过保守了，没有满足我最初期待的赛博朋克的样貌。当引入超梦的概念的时候，我期待着后续更多有关超梦的体验，但除了极少数剧情中其他很难体验到；我期待着各种猎奇剧情场面，但是除了人类牧场和某个赛博精神病任务以外几乎没有太多给我印象的场面刺激；前面也提到，游戏中充斥着大量炫暗示，尤其是当引出性偶和超梦的概念后，当你以为要有各种刺激的桃色体验时，其实根本没有这些，巫师三多少都会放几个。更不用提其中的LGBT元素了，在游戏中就找不到几个好看的人物，寻遍夜之城，到头来最好看的还是自己辛苦捏的小人。</p>
+<figure><img src="/img/games/cyberpunk-2077/06.png" alt="最艰难的二选一环节" loading="lazy" decoding="async"><figcaption>最艰难的二选一环节</figcaption></figure>
+<p>2077所刻画的赛博城市并非我心目中的模样，虽然在很多方面上展示了部分的赛博风味，但是远不如像双城之战中所描绘的那般完整。cpdr似乎把饼画的太大了，它无限提高你的期待又无限的把它一次次的降低，导致他们自己做到最后也只能端出来一个半成品，即使在这五年加入的种种配料显得这张饼相对完整而掩盖自己没有做熟的问题，但是吃起来却和做熟的则是大相径庭。当然，再怎么说，这都是一款3a大作，即使吃着半生不熟，但是凭借它众多的优秀配料，也足以让相当一部分玩家买单了。总的来说，和顶尖相比还是很有些差距，但是的确是一款好游戏。</p>
+<p>游戏评分：7</p>
+</div><nav class="game-back"><a href="/games/">← 返回全部游戏评测</a></nav></article></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/%E7%9B%B4%E6%92%AD1.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Seven39c5bb</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">10</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">3</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/Seven39c5bb" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2025 By Seven39c5bb</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="translateLink" type="button" title="简繁转换">简</button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><div class="js-pjax"></div><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="30" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-nest.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><!-- hexo injector body_end start --><script data-pjax>
+    function butterfly_categories_card_injector_config(){
+      var parent_div_git = document.getElementById('recent-posts');
+      var item_html = '<style>li.categoryBar-list-item{width:32.3%;}.categoryBar-list{max-height: 190px;overflow:auto;}.categoryBar-list::-webkit-scrollbar{width:0!important}@media screen and (max-width: 650px){.categoryBar-list{max-height: 160px;}}</style><div class="recent-post-item" style="height:auto;width:100%;padding:0px;"><div id="categoryBar"><ul class="categoryBar-list"></ul></div></div>';
+      console.log('已挂载butterfly_categories_card')
+      parent_div_git.insertAdjacentHTML("afterbegin",item_html)
+      }
+    if( document.getElementById('recent-posts') && (location.pathname ==='/'|| '/' ==='all')){
+    butterfly_categories_card_injector_config()
+    }
+  </script><!-- hexo injector body_end end --><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/miku.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body></html>

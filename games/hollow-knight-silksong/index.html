@@ -1,0 +1,201 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>空洞骑士：丝之歌 — TC送给苦等7年玩家的情书 | Seven39c5bb</title><meta name="author" content="Seven39c5bb"><meta name="copyright" content="Seven39c5bb"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff">
+
+
+
+
+
+
+
+
+
+<link rel="shortcut icon" href="/img/favicon.png"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+
+
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+
+          const hour = new Date().getHours()
+          const isNight = hour <= 6 || hour >= 18
+          if (theme === undefined) isNight ? activateDarkMode() : activateLightMode()
+          else theme === 'light' ? activateLightMode() : activateDarkMode()
+
+
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+
+
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":230,"highlightFullpage":false,"highlightMacStyle":true},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: {"chs_to_cht":"已切换为繁体中文","cht_to_chs":"已切换为简体中文","day_to_night":"已切换为深色模式","night_to_day":"已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"top-center"},
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: "空洞骑士：丝之歌 — TC送给苦等7年玩家的情书",
+  isHighlightShrink: false,
+  isToc: false,
+  pageType: 'page'
+}</script><link rel="stylesheet" href="/css/custom.css" media="defer" onload="this.media='all'"><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-categories-card@1.0.0/lib/categorybar.css"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0">
+<link rel="canonical" href="https://seven39c5bb.github.io/games/hollow-knight-silksong/">
+<meta name="description" content="丝之鸽？丝之歌！在所有人猜测是卖128还是98的时候，tc用76的价格并且搬出了前作两倍的体量的游戏狠狠的打了玩家们的脸。Team Cherry长达7年的用心打磨终究还是没有辜负玩家的期待，并且成功在上线那一个晚上挤爆steam，而我也是堪堪在第二天才能入手。">
+<meta property="og:title" content="空洞骑士：丝之歌 — TC送给苦等7年玩家的情书">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://seven39c5bb.github.io/games/hollow-knight-silksong/">
+<meta property="og:site_name" content="Seven39c5bb">
+<meta property="og:description" content="丝之鸽？丝之歌！在所有人猜测是卖128还是98的时候，tc用76的价格并且搬出了前作两倍的体量的游戏狠狠的打了玩家们的脸。Team Cherry长达7年的用心打磨终究还是没有辜负玩家的期待，并且成功在上线那一个晚上挤爆steam，而我也是堪堪在第二天才能入手。">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="/css/games.css">
+<meta property="og:image" content="https://seven39c5bb.github.io/img/games/hollow-knight-silksong/cover.png">
+<meta property="article:published_time" content="2026-09-08T00:00:00+08:00">
+</head><body><div id="web_bg" style="background-image: url(https://pics-bed.vercel.app/img/Miku-bg.jpg);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/%E7%9B%B4%E6%92%AD1.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">10</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">3</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/games/"><i class="fa-fw fas fa-gamepad"></i><span> 游戏评测</span></a></div><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 列表List</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/comments/"><i class="fa-fw fas fa-envelope-open"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="page" id="body-wrap"><header class="not-home-page" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Seven39c5bb</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/games/"><i class="fa-fw fas fa-gamepad"></i><span> 游戏评测</span></a></div><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 列表List</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/comments/"><i class="fa-fw fas fa-envelope-open"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="page-site-info"><h1 id="site-title">空洞骑士：丝之歌 — TC送给苦等7年玩家的情书</h1></div></header><main class="layout" id="content-inner"><div id="page" class="game-review"><article>
+<div class="game-review-meta"><a href="/games/">游戏评测</a><span class="game-score">个人评分 9.0</span></div>
+<div class="game-import-note">Notion 原文更新：<time datetime="2025-10-02T10:39:38.892Z">2025-10-02</time> · 迁移至博客：<time datetime="2026-09-08">2026-09-08</time><br>保留原文观点与评分，文中的时间表述以原文写作时为准。可能包含剧透。</div>
+<div class="container game-review-body" id="article-container">
+<p>丝之鸽？丝之歌！在所有人猜测是卖128还是98的时候，tc用76的价格并且搬出了前作两倍的体量的游戏狠狠的打了玩家们的脸。Team Cherry长达7年的用心打磨终究还是没有辜负玩家的期待，并且成功在上线那一个晚上挤爆steam，而我也是堪堪在第二天才能入手。</p>
+<p>我本人并不是类银的受众，但是丝之歌及其前作的制作之精良却也是让我在一遍遍的受苦跳跳乐和车轮战中坚持下去。从最开始的一遍遍红温破防，到中途的一次次的惊叹，到最后的意犹未尽，无愧于TC送给苦等7年玩家的情书。</p>
+<figure><img src="/img/games/hollow-knight-silksong/01.png" alt="steam三大将" loading="lazy" decoding="async"><figcaption>steam三大将</figcaption></figure>
+<p>游戏美术UI的整体风格完美继承了前作的品质，甚至有过之而无不及，这里也就不过多赘述了。音乐的品质更是夯中夯，每一首bgm都完美融入了场景，就是可能在游戏的过程中，大部分的存在感并没有这么高，但是只要经过了机枢舞者的boss战，深渊到远野的跳跳乐，每一首都能令我沉浸其中，高呼一声神了！美术的堆砌极其夸张，而其中的众多细节也是数不胜数，单是美术的内容，都能让你感受到这7年的沉淀。</p>
+<p>比较遗憾的是游戏中的翻译，虽然这作的剧情没有像一代这么谜语人了，而且主角也有声带了，但是简中翻译确实是很糟糕的一块，很多时候看着看着就会出戏，所以最后我选择使用英文原文，效果确实好了不少。</p>
+<figure><img src="/img/games/hollow-knight-silksong/02.png" alt="口蘑 vs spider，你们知道吗" loading="lazy" decoding="async"><figcaption>口蘑 vs spider，你们知道吗</figcaption></figure>
+<p>游戏的手感方面更是不用说，流畅的动画，而且本作在跳跃中还有稍差一点距离会判定为跳上去的机制，土狼时间这种最基本的也不需要多说了，而本作最为诟病的斜下劈在刚开始使用的时候确实非常不习惯，但是看到大多数玩家反馈习惯以后还是很好用的。</p>
+<p>游戏中有7中不同的攻击模组供你游玩，每一种都有每一种的特色。如果习惯不了斜下劈，可以选择使用有着一代下劈，攻速拉满的漫游者。如果觉得攻击太难了，还有我们操作难度最高的建筑师可以使用。而想玩暴力的法术流派，也有萨满纹章。</p>
+<p>一代中的护符系统换成了一系列的工具，不同工具甚至可以有不同的组合效果，这点上我认为和一代各有千秋，但是相对来说其实我更喜欢这一代，因为攻击模式带来的变化让玩家有了更多样的体验</p>
+<figure><img src="/img/games/hollow-knight-silksong/03.png" alt="和我的蓝血小蝙蝠齿轮说去吧" loading="lazy" decoding="async"><figcaption>和我的蓝血小蝙蝠齿轮说去吧</figcaption></figure>
+<p>游戏内容的丰富度简直是前作的两倍有余，谁懂初见圣咏殿地图给我带来的震撼。我不会说丝之歌的地图设计是类银的巅峰，但是它的确是最能惊艳到我的，似乎所有的地图都是连通的，隐藏道路多到数不完，似乎是你只要认为哪里会有隐藏，那么那里就会有。还有背景的各种光源，动物引导的正确道路，这种直觉感给我带来的，是不断继续探索的乐趣。</p>
+<p>不同于法环的dlc，虽然地图设计也是非常优秀，但是相对应的奖励则是令人震惊的烂，而丝之歌却能让探图得到的奖励满足玩家的期待。尤其是到了第三章，则会更惊叹于这个游戏内容之庞大，也更理解了这7年tc到底在做什么</p>
+<figure><img src="/img/games/hollow-knight-silksong/04.png" alt="从阴暗角落蠕动上来再看到这个太变态了" loading="lazy" decoding="async"><figcaption>从阴暗角落蠕动上来再看到这个太变态了</figcaption></figure>
+<p>这个游戏看攻略和不看攻略完全是两个体验，在没有难度预期和坑点避免的时候，会常常感受到来自各种地方的恶意。而在对难度有预期并且避免了很多陷阱和少走很多弯路后，其实反而会比你想象中简单很多。比如游戏中的货币系统，其实在知道刷钱点和将其转化为可以储存的念珠串后就不会再缺了。</p>
+<p>Boss的难度并不算高，虽然有一些非常亮眼的boss战，但是我觉得整体的设计其实我并不是特别喜欢，因为大多boss会召小怪，丝之歌中的小怪强度经常高到离谱，并且还有很多boss战之前会有一系列的遭遇战，这些小怪很影响与boss的交互体验。不过好在轮椅繁多，总有一款适合你，所以单是打过其实并不是很难。</p>
+<p>其实难点在在boss之前的那段路，一些boss战的房间会和存档点离得很远，并且会在这段路塞满跳跳乐和逆天小怪。其实往往有隐藏道路，但是这些隐藏道路在查攻略之前往往难以找到，在打螺蝇的时候，我因为没找到隐藏道路，每次打boss前都要跑很长一大段跳跳乐。而相反在很多人觉得痛苦的腐汁泽我则是通过攻略知道了隐藏道路的位置，所以相对打的其实并没有这么难受。</p>
+<figure><img src="/img/games/hollow-knight-silksong/05.png" alt="纺都最强四兄弟" loading="lazy" decoding="async"><figcaption>纺都最强四兄弟</figcaption></figure>
+<p>既然提到了跳跳乐部分，能很明显的感受到本作的跳跳乐特别的多。而且部分引导非常不明确，并且时常伴随着明显的tc的恶意。在游戏最开始的前几个地图，其中有一个交接点有通往两个不同地图的分叉路口，难度则大相径庭，而我正是非常幸运的朝着那个非常难的地图过去了，也正是我第一次红温破防的地图</p>
+<p>想象一下无穷无尽的跳跳乐，会读指令且机动性强到像boss的小怪，碰你一下还掉2血，在你好不容易跳完跳跳乐的时候，正以为可以放松一下了以后，紧接着的就是一场遭遇战，而且一路上并没有存档点。在遭遇战过后，当你看到那救命般的存档点，带着残存的血坐下去，就被陷阱一扫回到最开始的原点。</p>
+<p>在丝之歌中不乏这样的设计，不过随着机动性的提升和玩家对操作的逐渐熟练，并且在后续的补丁上线后，跳跳乐的难度其实是在逐渐降低的。就连我这种非常不喜欢跳跳乐的玩家也开始会在雪山这种地图中感受到跳跳乐独有的魅力</p>
+<figure><img src="/img/games/hollow-knight-silksong/06.png" alt="请输入文本" loading="lazy" decoding="async"><figcaption>请输入文本</figcaption></figure>
+<p>丝之歌中的很多奖励设置在了任务系统中，我最喜欢的是这个跳蚤的任务，和一代寻找幼虫类似，但是这里会随着你找到的跳蚤的数量，它们的居住地会不断搬迁，到最后，甚至会和你举办一次盛大的宴会，宴会上有各种各样的小游戏进行游玩</p>
+<p>游戏的难度曲线其实我认为其实是在呈下降的趋势的，或者说前期的游玩体验比后期折磨很多。直观体现就是在大黄蜂的机动性的提升，本作新加了一个钩针的横向平移手段，你可以把它想象成集位移，下劈，伤害为一体的究极变态技能，在得到这个技能之后，近乎所有的跳跳乐都不会有太多让我破防的时候了</p>
+<figure><img src="/img/games/hollow-knight-silksong/07.png" alt="胖宝宝胖宝宝" loading="lazy" decoding="async"><figcaption>胖宝宝胖宝宝</figcaption></figure>
+<p>我不知道应该如何评价这个游戏，瑕不掩瑜似乎无法准确说明我的感受。因为在我真正100%通关以后，先前所经历的红温似乎已经被我抛之脑后了，但是我能记住初见骸骨镇的苔原的美丽，钟心镇带来的安心，深渊跑酷的惊险，沉浸在机枢核心的音乐，在地图探索中给我带来的一个又一个的惊喜，与最终boss酣畅淋漓的战斗。</p>
+<p>所能想到的也只是：我忘记了所有悲痛，所记住的都是奇迹。</p>
+<figure><img src="/img/games/hollow-knight-silksong/08.png" alt="空洞骑士：丝之歌 — TC送给苦等7年玩家的情书 游戏截图" loading="lazy" decoding="async"></figure>
+<p>游戏评分：9.0</p>
+</div><nav class="game-back"><a href="/games/">← 返回全部游戏评测</a></nav></article></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/%E7%9B%B4%E6%92%AD1.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Seven39c5bb</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">10</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">3</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/Seven39c5bb" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2025 By Seven39c5bb</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="translateLink" type="button" title="简繁转换">简</button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><div class="js-pjax"></div><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="30" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-nest.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><!-- hexo injector body_end start --><script data-pjax>
+    function butterfly_categories_card_injector_config(){
+      var parent_div_git = document.getElementById('recent-posts');
+      var item_html = '<style>li.categoryBar-list-item{width:32.3%;}.categoryBar-list{max-height: 190px;overflow:auto;}.categoryBar-list::-webkit-scrollbar{width:0!important}@media screen and (max-width: 650px){.categoryBar-list{max-height: 160px;}}</style><div class="recent-post-item" style="height:auto;width:100%;padding:0px;"><div id="categoryBar"><ul class="categoryBar-list"></ul></div></div>';
+      console.log('已挂载butterfly_categories_card')
+      parent_div_git.insertAdjacentHTML("afterbegin",item_html)
+      }
+    if( document.getElementById('recent-posts') && (location.pathname ==='/'|| '/' ==='all')){
+    butterfly_categories_card_injector_config()
+    }
+  </script><!-- hexo injector body_end end --><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/miku.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body></html>
