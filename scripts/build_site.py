@@ -186,6 +186,10 @@ class SiteMarkup(HTMLParser):
 
 
 def style_document(document, record, root):
+    document = document.replace(
+        'href="https://github.com/xxxxxx"',
+        'href="https://github.com/Seven39c5bb"',
+    )
     favicon = ""
     if record["favicon"]:
         path = root / record["favicon"].lstrip("/")
