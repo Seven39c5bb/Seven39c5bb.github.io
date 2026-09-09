@@ -100,5 +100,17 @@
     ],
     "cover": "/img/projects/dark-side-walker/cover.png",
     "bilibili_url": "https://www.bilibili.com/video/BV1Gu4y1J7rs"
+  },
+  {
+    "slug": "yan-re-chu-fang",
+    "title": "焱热厨房",
+    "description": "一款单机 2D 横版跳跃游戏。主角从睡梦中醒来，发现自己身处一口温度不断升高的大锅。为了避免被炽热的锅底烤熟，主角需要在锅中闪展腾挪，踩着其他蔬菜不断跳跃。",
+    "tags": [
+      "单机游戏",
+      "2D 横版跳跃",
+      "蔬菜冒险"
+    ],
+    "cover": "/img/projects/yan-re-chu-fang/cover.png",
+    "bilibili_url": "https://www.bilibili.com/video/BV1D8411h7BY"
   }
 ]
