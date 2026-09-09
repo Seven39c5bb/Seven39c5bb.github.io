@@ -154,7 +154,7 @@ def build():
         route = f'/games/{record["slug"]}/'
         outputs[route.lstrip("/") + "index.html"] = make_page(template, record["title"], route, content, excerpt(record), record)
 
-    gallery = f'''<div id="page" class="games-index"><div class="game-intro"><p>我的游玩记录、主观感受与评分。</p><p>共 {len(records)} 篇评测，从 Notion 整理迁入，保留原文及配图。</p></div><div class="game-grid">{"".join(game_card(record) for record in records)}</div></div>'''
+    gallery = f'''<div id="page" class="games-index"><div class="game-grid">{"".join(game_card(record) for record in records)}</div></div>'''
     outputs["games/index.html"] = make_page(template, "游戏评测", "/games/", gallery, "Seven 的游戏评测：游玩记录、主观感受与评分。")
 
     outputs["index.html"] = home_landing(read("index.html"))
