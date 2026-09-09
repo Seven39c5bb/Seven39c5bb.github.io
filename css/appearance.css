@@ -383,64 +383,43 @@ html.home-landing #web_bg::before { background: transparent; }
   color: var(--btn-color);
 }
 
+#nav #blog-info { flex: 0 1 auto; min-width: 0; }
+#nav #blog-info .site-name { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+#nav #menus { margin-left: auto; flex: 0 0 auto; }
 #nav-tools {
-  position: relative;
-  flex: 0 0 auto;
-  margin-left: 10px;
-  color: var(--font-color);
-  text-shadow: none;
-}
-#nav-tools > summary {
   display: flex;
   align-items: center;
-  justify-content: center;
-  width: 44px;
-  height: 44px;
-  border-radius: 8px;
-  list-style: none;
-  cursor: pointer;
+  flex: 0 0 auto;
+  gap: 2px;
+  margin: 0 16px;
+  color: var(--light-grey);
 }
-#nav-tools > summary::-webkit-details-marker { display: none; }
-#nav-tools > summary:hover, #nav-tools[open] > summary { background: var(--site-tint); }
-#nav-tools .nav-tools-panel {
-  position: absolute;
-  top: calc(100% + 8px);
-  right: 0;
-  width: 174px;
-  padding: 6px;
-  border: 1px solid var(--site-border-color);
-  border-radius: 12px;
-  background: var(--card-bg);
-  box-shadow: var(--card-box-shadow);
-}
-#nav-tools:not([open]) .nav-tools-panel { display: none; }
+#page-header.nav-fixed #nav-tools, #page-header.not-top-img #nav-tools { color: var(--font-color); }
 #nav-tools button {
   display: flex;
   align-items: center;
-  gap: 12px;
-  width: 100%;
+  justify-content: center;
+  width: 36px;
   min-height: 44px;
-  padding: 8px 12px;
+  padding: 0;
   border: 0;
   border-radius: 7px;
   background: transparent;
-  color: var(--font-color);
+  color: inherit;
   font: inherit;
-  font-size: 13px;
-  text-align: left;
+  font-size: 16px;
+  line-height: 1;
   cursor: pointer;
 }
 #nav-tools button:hover { background: var(--site-tint); }
-#nav-tools .nav-tool-icon { width: 18px; color: var(--site-primary-color); text-align: center; font-size: 16px; }
-#nav-tools summary:focus-visible, #nav-tools button:focus-visible { outline: 2px solid var(--site-primary-color); outline-offset: 2px; }
+#nav-tools button:hover { color: var(--site-primary-color); }
+#nav-tools button:focus-visible { outline: 2px solid var(--site-primary-color); outline-offset: 2px; }
 html.home-landing #nav-tools #hide-aside-btn { display: none; }
 @media (max-width: 900px) {
   #nav-tools #hide-aside-btn { display: none; }
 }
 @media (max-width: 768px) {
-  #nav-tools { margin-left: 4px; }
-  #nav #blog-info { min-width: 0; }
-  #nav #blog-info .site-name { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  #nav-tools { gap: 0; margin: 0 6px; }
 }
 #footer { background: var(--global-bg) !important; border-top: 1px solid var(--site-border-color); }
 #footer-wrap, #footer-wrap a { color: var(--site-muted-color); }

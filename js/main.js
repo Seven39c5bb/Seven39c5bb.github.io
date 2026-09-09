@@ -12,7 +12,8 @@ document.addEventListener('DOMContentLoaded', () => {
       $nav = document.getElementById('nav')
     }
 
-    const hideMenuIndex = window.innerWidth <= 768 || headerContentWidth > $nav.offsetWidth - 120
+    const toolsWidth = document.getElementById('nav-tools').offsetWidth
+    const hideMenuIndex = window.innerWidth <= 768 || headerContentWidth + toolsWidth > $nav.offsetWidth - 120
     $nav.classList.toggle('hide-menu', hideMenuIndex)
   }
 
@@ -415,7 +416,7 @@ document.addEventListener('DOMContentLoaded', () => {
           $header.classList.add('nav-fixed')
         }
 
-        if (isDown && !navigationTools.open) {
+        if (isDown && !navigationTools.contains(document.activeElement)) {
           if (flag !== 'down') {
             $header.classList.remove('nav-visible')
             isChatBtn && window.chatBtn.hide()
@@ -634,32 +635,14 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   const navigationTools = document.getElementById('nav-tools')
-  const closeNavigationTools = () => {
-    navigationTools.open = false
-  }
   navigationTools.addEventListener('click', event => {
     const button = event.target.closest('button')
     if (!button) return
     const action = rightSideFn[button.dataset.tool || button.id]
     if (action) {
       action(navigationTools, button)
-      closeNavigationTools()
-      navigationTools.querySelector('summary').focus()
     }
   })
-  document.addEventListener('click', event => {
-    if (!navigationTools.contains(event.target)) closeNavigationTools()
-  })
-  document.addEventListener('keydown', event => {
-    if (event.key === 'Escape' && navigationTools.open) {
-      closeNavigationTools()
-      navigationTools.querySelector('summary').focus()
-    }
-  })
-  document.addEventListener('focusin', event => {
-    if (!navigationTools.contains(event.target)) closeNavigationTools()
-  })
-  btf.addGlobalFn('pjaxComplete', closeNavigationTools, 'closeNavigationTools')
 
   /**
    * menu

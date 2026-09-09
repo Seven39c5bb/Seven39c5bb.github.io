@@ -9,12 +9,12 @@ from urllib.parse import quote, urlsplit
 
 DEFAULT = {"favicon": "/img/site/pixel-mint.svg", "links": []}
 VOID_TAGS = {"area", "base", "br", "col", "embed", "hr", "img", "input", "link", "meta", "param", "source", "track", "wbr"}
-NAV_TOOLS = '''<details id="nav-tools"><summary title="阅读设置" aria-label="阅读设置"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="5" cy="12" r="1.75"/><circle cx="12" cy="12" r="1.75"/><circle cx="19" cy="12" r="1.75"/></svg></summary><div class="nav-tools-panel" role="group" aria-label="阅读工具">
-<button type="button" data-tool="translateLink"><span class="nav-tool-icon" id="translateLink" aria-hidden="true">简</span><span>简繁转换</span></button>
-<button type="button" id="darkmode"><span class="nav-tool-icon" aria-hidden="true">◐</span><span>切换明暗</span></button>
-<button type="button" id="hide-aside-btn"><span class="nav-tool-icon" aria-hidden="true">↔</span><span>单栏 / 双栏</span></button>
-<button type="button" id="go-up"><span class="nav-tool-icon" aria-hidden="true">↑</span><span>回到顶部</span></button>
-</div></details>'''
+NAV_TOOLS = '''<div id="nav-tools" role="group" aria-label="阅读工具">
+<button type="button" data-tool="translateLink" aria-label="简繁转换"><span id="translateLink" aria-hidden="true">简</span></button>
+<button type="button" id="darkmode" aria-label="切换明暗"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M12 4a8 8 0 0 1 0 16Z" fill="currentColor"/></svg></button>
+<button type="button" id="hide-aside-btn" aria-label="单栏或双栏"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h16m-4-4 4 4-4 4M20 16H4m4-4-4 4 4 4"/></svg></button>
+<button type="button" id="go-up" aria-label="回到顶部"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20V4m-6 6 6-6 6 6"/></svg></button>
+</div>'''
 
 
 def validate_svg(data):
@@ -145,7 +145,7 @@ class SiteMarkup(HTMLParser):
             return
         remove = bool(classes & {"site-data", "card-info-social-icons", "managed-profile-links"}) or attrs.get("id") in {"site_social_icons", "rightside", "nav-tools"}
         insert = self.links if attrs.get("id") in {"site-info", "sidebar-menus"} or {"card-widget", "card-info"}.issubset(classes) else ""
-        if tag == "nav" and attrs.get("id") == "nav":
+        if attrs.get("id") == "blog-info":
             insert = NAV_TOOLS
         self.frames.append((tag, start, remove, insert))
 
@@ -167,7 +167,8 @@ class SiteMarkup(HTMLParser):
                 end = self.document.index(">", start) + 1
                 self.edits.append((frame_start, end, ""))
             elif insert:
-                self.edits.append((start, start, insert))
+                position = self.document.index(">", start) + 1 if insert == NAV_TOOLS else start
+                self.edits.append((position, position, insert))
             break
 
     def render(self):
@@ -176,6 +177,7 @@ class SiteMarkup(HTMLParser):
         removals = [(start, end) for start, end, text in self.edits if end > start]
         edits = [(start, end, text) for start, end, text in self.edits
                  if not any(outer_start <= start < outer_end and end <= outer_end and (outer_start, outer_end) != (start, end)
+                            and not (start == end == outer_start)
                             for outer_start, outer_end in removals)]
         document = self.document
         for start, end, text in sorted(edits, reverse=True):
