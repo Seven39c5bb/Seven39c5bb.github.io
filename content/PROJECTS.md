@@ -41,7 +41,7 @@
 
 链接支持 HTTPS 或站内绝对路径。站内路径对应的文件或目录必须存在，例如将截图放入 `img/projects/` 后填写 `/img/projects/cover.jpg`。不填写链接时不会出现对应按钮，也不会生成无效占位按钮。外部链接在新标签页打开。
 
-《失光》的封面、中文名称、玩法简介和发行状态依据其 [Steam 商店页面](https://store.steampowered.com/app/4614120/Fiat_Less/) 整理。封面保存在 `img/projects/fiat-less/header.jpg`，按 Steam 横幅比例完整显示。发行状态是手动维护的快照，不会自动与 Steam 同步；发售后请更新 `status` 并重新生成。开发引擎和个人职责尚未填写，待作者确认后补充。
+《失光》的封面、中文名称、玩法简介和发行状态依据其 [Steam 商店页面](https://store.steampowered.com/app/4614120/Fiat_Less/) 整理。封面保存在 `img/projects/fiat-less/header.jpg`，在统一的 16:9 区域内完整显示，保留上下留白，不裁切标题。发行状态是手动维护的快照，不会自动与 Steam 同步；发售后请更新 `status` 并重新生成。开发引擎和个人职责尚未填写，待作者确认后补充。
 
 《Fish Come》的封面、简介和原型状态依据其 [itch.io 作品页面](https://seven39c5bb.itch.io/fish-come) 整理。封面保存在 `img/projects/fish-come/cover.png`。该页面提供 Windows 下载，未设置浏览器试玩入口；按钮链接到作品页面，而不是临时下载地址。项目状态与下载平台同样需要手动维护，未确认的引擎和个人职责不填写。
 

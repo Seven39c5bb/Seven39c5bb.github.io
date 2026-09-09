@@ -66,6 +66,9 @@
   gap: 24px;
 }
 .project-card {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
   overflow: hidden;
   border: 1px solid var(--light-grey);
   border-radius: 12px;
@@ -73,6 +76,7 @@
   scroll-margin-top: 80px;
 }
 .project-cover {
+  flex: none;
   aspect-ratio: 16 / 9;
   overflow: hidden;
   background: var(--project-tint);
@@ -82,9 +86,6 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-}
-.project-cover-steam {
-  aspect-ratio: 460 / 215;
 }
 .project-cover-steam img {
   object-fit: contain;
@@ -96,14 +97,22 @@
   color: var(--project-accent);
 }
 .project-copy {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
   padding: 24px;
   overflow-wrap: anywhere;
 }
 .project-copy h3 {
-  margin: 12px 0;
+  margin: 0;
   font-size: 22px;
+  line-height: 1.5;
 }
 .project-copy p {
+  flex: 1;
+  margin: 0;
   line-height: 1.9;
   white-space: pre-line;
 }
@@ -116,17 +125,25 @@
   font-size: 12px;
 }
 .project-status {
+  align-self: flex-start;
+  justify-self: start;
   color: var(--project-accent);
   font-weight: 600;
 }
 .project-tags,
 .project-actions {
   display: flex;
+  align-items: flex-start;
   flex-wrap: wrap;
   gap: 8px;
 }
+.project-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
 .project-details {
-  margin: 20px 0;
+  margin: 0;
   font-size: 13px;
 }
 .project-details > div {
@@ -139,6 +156,48 @@
 }
 .project-details dd {
   margin: 0;
+}
+.project-details:empty,
+.project-tags:empty {
+  display: none;
+}
+.project-actions .project-button {
+  min-width: 160px;
+}
+@supports (grid-template-rows: subgrid) {
+  @media (min-width: 701px) {
+    .project-card {
+      display: grid;
+      grid-row: span 6;
+      grid-template-rows: subgrid;
+      row-gap: 0;
+    }
+    .project-cover {
+      grid-row: 1;
+    }
+    .project-copy {
+      display: grid;
+      grid-row: 2 / span 5;
+      grid-template-rows: subgrid;
+      row-gap: 16px;
+      align-items: start;
+    }
+    .project-status {
+      grid-row: 1;
+    }
+    .project-copy h3 {
+      grid-row: 2;
+    }
+    .project-copy p {
+      grid-row: 3;
+    }
+    .project-meta {
+      grid-row: 4;
+    }
+    .project-actions {
+      grid-row: 5;
+    }
+  }
 }
 .project-button {
   display: inline-flex;

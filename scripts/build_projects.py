@@ -66,8 +66,8 @@ def project_card(record, root):
             actions.append(f'<a class="project-button" href="{address}"{external}>{label}<span class="project-sr-only">：{title}</span><span aria-hidden="true"> ↗</span></a>')
     return f'''<article class="project-card" id="{record['slug']}">
 {cover}<div class="project-copy">{status}<h3>{title}</h3>
-<p>{html.escape(record['description'])}</p><div class="project-tags">{tags}</div>
-<dl class="project-details">{details}</dl><div class="project-actions">{"".join(actions)}</div></div></article>'''
+<p>{html.escape(record['description'])}</p><div class="project-meta"><div class="project-tags">{tags}</div>
+<dl class="project-details">{details}</dl></div><div class="project-actions">{"".join(actions)}</div></div></article>'''
 
 
 def add_projects(outputs, root, template, make_page):
