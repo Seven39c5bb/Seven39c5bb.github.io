@@ -65,6 +65,8 @@ def review_body(record):
 
 
 def shared(document, post_count, tag_count, category_count):
+    document = re.sub(r'<script\b[^>]*\bsrc="/live2dw/[^"]*"[^>]*>\s*</script>', "", document, flags=re.S)
+    document = re.sub(r'<script>\s*L2Dwidget\.init\(.*?</script>', "", document, flags=re.S)
     document = re.sub(
         r'<div class="menus_item"><a class="site-page" href="/(?:archives|tags|categories|comments|link)/">.*?</a></div>',
         "", document, flags=re.S)
@@ -116,13 +118,13 @@ def game_card(record):
 </div></article>'''
 
 
-def home_card(record):
-    route = f'/games/{record["slug"]}/'
-    return f'''<div class="recent-post-item game-home-card" data-game-review="{record["slug"]}">
-<div class="post_cover left"><a href="{route}" aria-label="{html.escape(record["title"])}"><img class="post-bg" src="{record["cover"]}" alt="{html.escape(record["title"])}" loading="lazy" decoding="async"></a></div>
-<div class="recent-post-info"><a class="article-title" href="{route}" title="{html.escape(record["title"])}">{html.escape(record["title"])}</a>
-<div class="article-meta-wrap"><a href="/categories/games/">游戏评测</a> · 个人评分 {score(record)} · 迁移于 <time datetime="{record["imported"]}">{record["imported"]}</time></div>
-<div class="content">{html.escape(excerpt(record))}…</div></div></div>'''
+def home_landing(document):
+    if '<html class="home-landing"' not in document:
+        document = document.replace('<html ', '<html class="home-landing" ', 1)
+    document = re.sub(r'<main class="layout" id="content-inner">.*?</main>', "", document, flags=re.S)
+    document = re.sub(r'<footer id="footer">.*?</footer>', "", document, flags=re.S)
+    document = re.sub(r'<div id="scroll-down">.*?</div>', "", document, flags=re.S)
+    return document.replace('<link rel="stylesheet" href="/css/projects.css">', "")
 
 
 def archive_item(title, route, date, label="发表于"):
@@ -155,12 +157,7 @@ def build():
     gallery = f'''<div id="page" class="games-index"><div class="game-intro"><p>我的游玩记录、主观感受与评分。</p><p>共 {len(records)} 篇评测，从 Notion 整理迁入，保留原文及配图。</p></div><div class="game-grid">{"".join(game_card(record) for record in records)}</div></div>'''
     outputs["games/index.html"] = make_page(template, "游戏评测", "/games/", gallery, "Seven 的游戏评测：游玩记录、主观感受与评分。")
 
-    home = read("index.html")
-    home = re.sub(r'<!-- game-reviews:start -->.*?<!-- game-reviews:end -->', "", home, flags=re.S)
-    cards = '<!-- game-reviews:start -->\n' + "\n".join(home_card(record) for record in records) + '\n<!-- game-reviews:end -->'
-    home = home.replace('<div class="recent-post-items">', '<div class="recent-post-items">' + cards, 1)
-    home = home.replace('class="recent-posts nc"', 'class="recent-posts"')
-    outputs["index.html"] = home
+    outputs["index.html"] = home_landing(read("index.html"))
 
     entries = "".join(archive_item(record["title"], f'/games/{record["slug"]}/', record["imported"], "迁移于") for record in records)
     for route, title in [("categories/games", "分类 - 游戏评测"), ("tags/games", "标签 - 游戏评测")]:

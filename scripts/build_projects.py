@@ -83,17 +83,12 @@ def add_projects(outputs, root, template, make_page):
 <section class="projects-collection" aria-labelledby="collection-heading"><div class="projects-section-heading"><h2 id="collection-heading">我的作品</h2><span>MY GAMES</span></div>
 {f'<div class="projects-grid">{cards}</div>' if records else empty}</section></div>'''
     outputs["projects/index.html"] = make_page(template, TITLE, ROUTE, content, DESCRIPTION)
-    teaser = '''<!-- game-projects:start --><section class="projects-teaser" aria-labelledby="projects-teaser-heading">
-<div><span class="projects-eyebrow">MADE BY SEVEN</span><h2 id="projects-teaser-heading">我做的游戏</h2><p>把想象变成可以亲手探索的世界。</p></div>
-<a class="project-button" href="/projects/">探索游戏作品 <span aria-hidden="true">→</span></a></section><!-- game-projects:end -->'''
-    home = re.sub(r'<!-- game-projects:start -->.*?<!-- game-projects:end -->', "", outputs["index.html"], flags=re.S)
-    outputs["index.html"] = home.replace('<div class="recent-post-items">', teaser + '<div class="recent-post-items">', 1)
     for path, document in list(outputs.items()):
         if not path.endswith(".html"):
             continue
         document = document.replace(MENU, "")
         document = document.replace('<div class="menus_items">', '<div class="menus_items">' + MENU)
-        if path in ("index.html", "projects/index.html") and STYLE not in document:
+        if path == "projects/index.html" and STYLE not in document:
             document = document.replace("</head>", STYLE + "\n</head>")
         outputs[path] = document
     search = ET.fromstring(outputs["search.xml"])

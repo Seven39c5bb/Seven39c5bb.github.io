@@ -21,3 +21,20 @@
 [data-theme="dark"] #page-header::before {
   background: transparent !important;
 }
+
+html.home-landing,
+.home-landing body {
+  height: 100%;
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+
+.home-landing #body-wrap,
+.home-landing #page-header.full_page {
+  height: 100vh;
+  height: 100dvh;
+}
+
+.home-landing #rightside {
+  display: none;
+}
