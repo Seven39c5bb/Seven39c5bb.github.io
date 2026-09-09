@@ -7,5 +7,14 @@
     "tags": ["卡牌构筑", "战棋", "类 Rogue", "洛夫克拉夫特式"],
     "cover": "/img/projects/fiat-less/header.jpg",
     "steam_url": "https://store.steampowered.com/app/4614120/Fiat_Less/"
+  },
+  {
+    "slug": "fish-come",
+    "title": "Fish Come",
+    "description": "一款开发中的钓鱼收集游戏原型，围绕钓鱼与收集展开。目前提供 Windows 版本，可前往 itch.io 页面下载体验。",
+    "status": "开发中原型",
+    "tags": ["钓鱼", "收集", "Windows"],
+    "cover": "/img/projects/fish-come/cover.png",
+    "itch_url": "https://seven39c5bb.itch.io/fish-come"
   }
 ]

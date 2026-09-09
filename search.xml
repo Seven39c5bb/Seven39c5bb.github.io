@@ -223,4 +223,13 @@
       <tag>游戏作品</tag>
     </tags>
   </entry>
+  <entry>
+    <title>Fish Come</title>
+    <link href="/projects/#fish-come" />
+    <url>/projects/#fish-come</url>
+    <content type="html">一款开发中的钓鱼收集游戏原型，围绕钓鱼与收集展开。目前提供 Windows 版本，可前往 itch.io 页面下载体验。</content>
+    <tags>
+      <tag>游戏作品</tag>
+    </tags>
+  </entry>
 </search>
