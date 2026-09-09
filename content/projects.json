@@ -88,5 +88,17 @@
     "role": "主程序与设计，负责交互原型、完整软件开发及动态难度系统",
     "cover": "/img/projects/mote-guardian/cover.png",
     "pdf_url": "/projects/mote-guardian/portfolio.pdf"
+  },
+  {
+    "slug": "dark-side-walker",
+    "title": "暗面行者",
+    "description": "用卡牌之间的融合探索月球的暗面吧。",
+    "tags": [
+      "卡牌融合",
+      "月球探索",
+      "像素风格"
+    ],
+    "cover": "/img/projects/dark-side-walker/cover.png",
+    "bilibili_url": "https://www.bilibili.com/video/BV1Gu4y1J7rs"
   }
 ]
