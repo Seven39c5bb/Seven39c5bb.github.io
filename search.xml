@@ -232,4 +232,11 @@
       <tag>游戏作品</tag>
     </tags>
   </entry>
+  <entry>
+    <title>关于 Seven</title>
+    <link href="/about/" />
+    <url>/about/</url>
+    <content type="html">
+KEEP YOUR DETERMINATION</content>
+  </entry>
 </search>
