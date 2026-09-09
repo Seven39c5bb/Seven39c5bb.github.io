@@ -197,6 +197,13 @@ html.home-landing #web_bg::before { background: transparent; }
   pointer-events: none;
 }
 
+#page-header:not(.full_page):not(.not-top-img)::before,
+#page-header:not(.full_page):not(.not-top-img)::after {
+  --site-header-fade: linear-gradient(to bottom, #000 55%, rgba(0, 0, 0, 0.94) 65%, rgba(0, 0, 0, 0.7) 75%, rgba(0, 0, 0, 0.35) 85%, rgba(0, 0, 0, 0.06) 95%, transparent 100%);
+  -webkit-mask-image: var(--site-header-fade);
+  mask-image: var(--site-header-fade);
+}
+
 #page-header #site-title, #page-header #site-subtitle,
 #page-header #site_social_icons a, #page-header #post-info,
 #page-header #post-info a, #page-header #post-info .post-title,
