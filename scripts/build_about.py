@@ -87,11 +87,14 @@ def add_about(outputs, root, replace_main, site_url="https://seven39c5bb.github.
         tag = "h2" if text.startswith("## ") else "p"
         blocks.append(f'<{tag}>{text[3:] if tag == "h2" else text}</{tag}>')
     links = "".join(f'<a class="about-link" href="{html.escape(link["url"], quote=True)}" target="_blank" rel="noopener noreferrer">{html.escape(link["label"])} ↗</a>' for link in record["links"])
-    content = f'<div id="page"><div class="container managed-about" id="article-container">{avatar}<h1>{html.escape(record["name"])}</h1><p class="about-tagline">{html.escape(record["tagline"])}</p>{"".join(blocks)}<div class="about-links">{links}</div></div></div>'
+    tagline = f'<p class="about-tagline">{html.escape(record["tagline"])}</p>' if record["tagline"].strip() else ""
+    link_section = f'<div class="about-links">{links}</div>' if links else ""
+    content = f'<div id="page"><div class="container managed-about" id="article-container">{avatar}<div class="about-copy"><h1>{html.escape(record["name"])}</h1>{tagline}{"".join(blocks)}{link_section}</div></div></div>'
     document = replace_main(outputs.get("about/index.html", (root / "about/index.html").read_text(encoding="utf-8")), content)
-    stylesheet = '<link rel="stylesheet" href="/css/about.css">'
-    if stylesheet not in document:
-        document = document.replace("</head>", stylesheet + "\n</head>")
+    version = hashlib.sha256((root / "css/about.css").read_bytes()).hexdigest()[:12]
+    document = re.sub(r'<link\b[^>]*href="/css/about\.css(?:\?[^"]*)?"[^>]*>\s*', "", document)
+    stylesheet = f'<link rel="stylesheet" href="/css/about.css?v={version}">'
+    document = document.replace("</head>", stylesheet + "\n</head>")
     outputs["about/index.html"] = document
     search = ET.fromstring(outputs["search.xml"])
     for entry in list(search):

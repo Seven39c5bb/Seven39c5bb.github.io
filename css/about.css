@@ -1,5 +1,103 @@
-.managed-about{max-width:820px;margin:0 auto;padding:22px 0;line-height:1.95;overflow-wrap:anywhere}
-.managed-about .about-avatar{width:112px;height:112px;border-radius:50%;object-fit:cover;margin-bottom:20px}
-.managed-about .about-tagline{font-size:1.1em;opacity:.7;margin-bottom:32px}
-.managed-about .about-links{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px}
-.managed-about .about-link{padding:8px 18px;border:1px solid var(--site-border-color);border-radius:8px}
+#aside-content {
+  display: none;
+}
+
+#page-header #site-title::after {
+  content: none;
+}
+
+#content-inner.layout {
+  width: calc(100% - 48px);
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 32px 0 56px;
+  justify-content: center;
+}
+
+#content-inner.layout > #page {
+  width: 100%;
+  min-width: 0;
+  padding: clamp(28px, 4vw, 56px);
+}
+
+#article-container.managed-about {
+  display: flex;
+  align-items: center;
+  gap: clamp(24px, 4vw, 48px);
+  margin: 0;
+  padding: 0;
+  line-height: 1.95;
+  overflow-wrap: anywhere;
+}
+
+#article-container.managed-about .about-avatar {
+  flex: 0 0 128px;
+  width: 128px;
+  height: 128px;
+  margin: 0;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.managed-about .about-copy {
+  flex: 1;
+  min-width: 0;
+}
+
+#article-container.managed-about h1 {
+  margin: 0 0 12px;
+  font-size: clamp(28px, 3vw, 36px);
+}
+
+#article-container.managed-about p {
+  margin: 0 0 16px;
+}
+
+#article-container.managed-about .about-copy > :last-child {
+  margin-bottom: 0;
+}
+
+.managed-about .about-tagline {
+  font-size: 1.1em;
+  color: var(--site-muted-color);
+}
+
+.managed-about .about-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.managed-about .about-link {
+  padding: 8px 18px;
+  border: 1px solid var(--site-border-color);
+  border-radius: 8px;
+}
+
+@media (max-width: 600px) {
+  #content-inner.layout {
+    width: calc(100% - 24px);
+    padding: 24px 0 40px;
+  }
+
+  #article-container.managed-about {
+    flex-direction: column;
+    gap: 20px;
+    text-align: center;
+  }
+
+  #article-container.managed-about .about-avatar {
+    flex-basis: auto;
+    width: 104px;
+    height: 104px;
+  }
+
+  .managed-about .about-copy {
+    width: 100%;
+  }
+
+  .managed-about .about-links {
+    justify-content: center;
+  }
+}

@@ -152,7 +152,7 @@ def archive_content(title, items):
 def build():
     records = [json.loads(path.read_text(encoding="utf-8")) for path in sorted((ROOT / "content/games").glob("*.json"))]
     records.sort(key=lambda record: record["source_updated"], reverse=True)
-    template = read("about/index.html").replace('<link rel="stylesheet" href="/css/about.css">\n', "")
+    template = re.sub(r'<link\b[^>]*href="/css/about\.css(?:\?[^"]*)?"[^>]*>\s*', "", read("about/index.html"))
     outputs = {}
     for record in records:
         original_date = record["body"].splitlines()[0]
