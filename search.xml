@@ -251,6 +251,24 @@
     </tags>
   </entry>
   <entry>
+    <title>云梦山学院 · Yunmengshan Academy</title>
+    <link href="/projects/#yunmengshan-academy" />
+    <url>/projects/#yunmengshan-academy</url>
+    <content type="html">一款融合大语言模型 NPC 的 AI 驱动模拟经营游戏。围绕卡牌收集、背包管理与卡牌战斗展开成长，并在「论道」模式中识别对手论点的谬误、使用卡牌反驳。结合玩家输入与典故的爆发攻击，让语言表达成为战斗的一部分。</content>
+    <tags>
+      <tag>游戏作品</tag>
+    </tags>
+  </entry>
+  <entry>
+    <title>微尘守护 · Mote Guardian</title>
+    <link href="/projects/#mote-guardian" />
+    <url>/projects/#mote-guardian</url>
+    <content type="html">一款面向学龄前儿童、以提升过敏防护意识为目标的严肃游戏。玩家探索手绘地图，通过询问、辨认与拖拽交互了解过敏原，并在动画与语音辅助中完成任务。游戏结合 LSTM 神经网络与动态难度调整，根据玩家表现调节挑战强度。</content>
+    <tags>
+      <tag>游戏作品</tag>
+    </tags>
+  </entry>
+  <entry>
     <title>关于 Seven</title>
     <link href="/about/" />
     <url>/about/</url>

@@ -12,7 +12,7 @@ EXPECTED_REMOTE = "https://github.com/Seven39c5bb/Seven39c5bb.github.io.git"
 BRANCH = "main"
 PUBLIC_ROOTS = {"2025", "about", "archives", "categories", "comments", "content", "css", "games", "img", "js", "link", "live2dw", "movies", "music", "projects", "scripts", "tags"}
 PUBLIC_FILES = {"index.html", "search.xml", ".gitignore", "BLOG-MANAGER.md", "manage-blog.cmd"}
-EXTENSIONS = {".html", ".css", ".js", ".json", ".xml", ".png", ".jpg", ".jpeg", ".gif", ".webp", ".ico", ".svg", ".mp3", ".ogg", ".wav", ".mp4", ".webm", ".woff", ".woff2", ".ttf", ".eot", ".moc", ".py", ".md", ".cmd"}
+EXTENSIONS = {".html", ".css", ".js", ".json", ".xml", ".png", ".jpg", ".jpeg", ".gif", ".webp", ".ico", ".svg", ".mp3", ".ogg", ".wav", ".mp4", ".webm", ".woff", ".woff2", ".ttf", ".eot", ".moc", ".py", ".md", ".cmd", ".pdf"}
 
 
 class CloudSync:

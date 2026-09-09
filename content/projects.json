@@ -58,5 +58,35 @@
     ],
     "cover": "/img/projects/kui-xi/cover.png",
     "bilibili_url": "https://www.bilibili.com/video/BV1im4y1b7CF"
+  },
+  {
+    "slug": "yunmengshan-academy",
+    "title": "云梦山学院 · Yunmengshan Academy",
+    "description": "一款融合大语言模型 NPC 的 AI 驱动模拟经营游戏。围绕卡牌收集、背包管理与卡牌战斗展开成长，并在「论道」模式中识别对手论点的谬误、使用卡牌反驳。结合玩家输入与典故的爆发攻击，让语言表达成为战斗的一部分。",
+    "tags": [
+      "模拟经营",
+      "AI NPC",
+      "卡牌战斗",
+      "论道辩论"
+    ],
+    "engine": "Unity",
+    "role": "核心系统与玩法开发、卡牌及背包系统、论道模式、基础框架维护",
+    "cover": "/img/projects/yunmengshan-academy/cover.png",
+    "pdf_url": "/projects/yunmengshan-academy/portfolio.pdf"
+  },
+  {
+    "slug": "mote-guardian",
+    "title": "微尘守护 · Mote Guardian",
+    "description": "一款面向学龄前儿童、以提升过敏防护意识为目标的严肃游戏。玩家探索手绘地图，通过询问、辨认与拖拽交互了解过敏原，并在动画与语音辅助中完成任务。游戏结合 LSTM 神经网络与动态难度调整，根据玩家表现调节挑战强度。",
+    "tags": [
+      "严肃游戏",
+      "儿童教育",
+      "动态难度",
+      "LSTM"
+    ],
+    "engine": "Unity",
+    "role": "主程序与设计，负责交互原型、完整软件开发及动态难度系统",
+    "cover": "/img/projects/mote-guardian/cover.png",
+    "pdf_url": "/projects/mote-guardian/portfolio.pdf"
   }
 ]
