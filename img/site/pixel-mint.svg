@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" shape-rendering="crispEdges" role="img" aria-label="抽象雾青像素双马尾图标">
+  <title>Pixel Mint</title>
+  <path fill="#223b38" d="M4 0h24v2h2v2h2v24h-2v2h-2v2H4v-2H2v-2H0V4h2V2h2Z"/>
+  <path fill="#78bcb2" d="M6 8h4v6H8v10H6v4H2v-4h2V12h2Zm16 0h4v4h2v12h2v4h-4v-2h-2V14h-2Z"/>
+  <path fill="#477c76" d="M4 18h2v8H4Zm22-2h2v8h-2ZM12 24h8v2h2v4H10v-4h2Z"/>
+  <path fill="#39c5bb" d="M12 4h8v2h4v4h2v8h-4v2H10v-2H8v-8h2V6h2Z"/>
+  <path fill="#d4e8d5" d="M10 14h12v6h-2v2h-2v2h-4v-2h-2v-2h-2Z"/>
+  <path fill="#78bcb2" d="M10 8h12v6h-2v2h-2v-4h-2v4h-2v-4h-2v2h-2Z"/>
+  <path fill="#d4e8d5" d="M12 6h6v2h-6Zm-6 8h2v6H6Zm18 2h2v6h-2Z"/>
+  <path fill="#223b38" d="M12 16h2v2h-2Zm6 0h2v2h-2Z"/>
+  <path fill="#bc8896" d="M6 8h2v4H6Zm18 0h2v4h-2Z"/>
+  <path fill="#39c5bb" d="M14 26h4v4h-4Z"/>
+</svg>

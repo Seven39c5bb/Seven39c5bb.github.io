@@ -14,8 +14,8 @@ function siteLinkRow(link = {label: '', url: '', enabled: true}) {
 }
 
 function siteFields(record) {
-  const options = state.images.filter(image => /\.(png|ico)$/i.test(image.path)).map(image => `<option value="${escapeHtml(image.path)}">${escapeHtml(image.path)}</option>`).join('');
-  return `<section class="site-settings-section"><h3>网站小图标 / Favicon</h3><p class="muted">用于浏览器标签页与收藏夹。建议使用正方形的 32 × 32 或 64 × 64 图标，支持 2 MB 以内的 PNG、ICO。</p>${studioField('favicon', '图标路径（留空即移除）', record.favicon)}<div class="studio-field"><label for="site-icon-choice">从素材库选择</label><select id="site-icon-choice"><option value="">选择已上传的 PNG / ICO</option>${options}</select></div><div class="page-links"><button class="button" type="button" data-site-action="upload-icon">上传新图标</button><button class="button" type="button" data-site-action="default-icon">恢复默认图标</button><button class="button" type="button" data-site-action="clear-icon">移除图标</button></div><input id="site-icon-upload" type="file" accept="image/png,image/x-icon,image/vnd.microsoft.icon,.png,.ico" hidden><div id="site-icon-preview" class="site-icon-preview" aria-live="polite"></div><p class="muted">上传的素材会保留在本地素材库；点击保存后才会用于博客。发布时图片也会公开。</p></section><section class="site-settings-section"><h3>各平台个人主页</h3><p class="muted">按列表顺序展示，最多 20 个。仅接受 HTTPS 地址；可以暂时隐藏，无需删除。留空列表不会展示任何入口。</p><div id="site-link-rows">${record.links.map(siteLinkRow).join('')}</div><button class="button" type="button" data-site-action="add">＋ 添加个人主页</button></section>`;
+  const options = state.images.filter(image => /\.(png|ico|svg)$/i.test(image.path)).map(image => `<option value="${escapeHtml(image.path)}">${escapeHtml(image.path)}</option>`).join('');
+  return `<section class="site-settings-section"><h3>网站小图标 / Favicon</h3><p class="muted">用于浏览器标签页与收藏夹。建议使用正方形的 32 × 32 或 64 × 64 图标，支持 2 MB 以内的 PNG、ICO 或静态 SVG。</p>${studioField('favicon', '图标路径（留空即移除）', record.favicon)}<div class="studio-field"><label for="site-icon-choice">从素材库选择</label><select id="site-icon-choice"><option value="">选择已上传的 PNG / ICO / SVG</option>${options}</select></div><div class="page-links"><button class="button" type="button" data-site-action="upload-icon">上传新图标</button><button class="button" type="button" data-site-action="default-icon">恢复默认图标</button><button class="button" type="button" data-site-action="clear-icon">移除图标</button></div><input id="site-icon-upload" type="file" accept="image/png,image/x-icon,image/vnd.microsoft.icon,image/svg+xml,.png,.ico,.svg" hidden><div id="site-icon-preview" class="site-icon-preview" aria-live="polite"></div><p class="muted">SVG 仅支持纯色静态几何图形，不接受脚本、外链或动画。上传的素材会保留在本地素材库；点击保存后才会用于博客。发布时图片也会公开。</p></section><section class="site-settings-section"><h3>各平台个人主页</h3><p class="muted">按列表顺序展示，最多 20 个。仅接受 HTTPS 地址；可以暂时隐藏，无需删除。留空列表不会展示任何入口。</p><div id="site-link-rows">${record.links.map(siteLinkRow).join('')}</div><button class="button" type="button" data-site-action="add">＋ 添加个人主页</button></section>`;
 }
 
 function siteRecord(fields) {
@@ -41,7 +41,7 @@ function updateSiteIconPreview() {
 
 async function uploadSiteIcon(file) {
   if (!file || studio.busy) return;
-  if (!/\.(png|ico)$/i.test(file.name) || file.size > 2 * 1024 * 1024) throw new Error('请选择 2 MB 以内的 PNG 或 ICO 文件。');
+  if (!/\.(png|ico|svg)$/i.test(file.name) || file.size > 2 * 1024 * 1024) throw new Error('请选择 2 MB 以内的 PNG、ICO 或静态 SVG 文件。');
   studio.busy = true;
   select('#studio-form').querySelectorAll('button,input,textarea,select').forEach(element => { element.disabled = true; });
   try {
@@ -81,7 +81,7 @@ function siteAction(button) {
   } else if (action === 'down' && row?.nextElementSibling) {
     rows.insertBefore(row.nextElementSibling, row);
   } else if (action === 'default-icon' || action === 'clear-icon') {
-    select('#studio-favicon').value = action === 'default-icon' ? '/img/favicon.ico' : '';
+    select('#studio-favicon').value = action === 'default-icon' ? '/img/site/pixel-mint.svg' : '';
     select('#site-icon-choice').value = '';
     updateSiteIconPreview();
   }

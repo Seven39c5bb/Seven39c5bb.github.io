@@ -1,12 +1,59 @@
 import hashlib
 import html
 import json
+import re
+import xml.etree.ElementTree as ET
 from html.parser import HTMLParser
 from urllib.parse import quote, urlsplit
 
 
-DEFAULT = {"favicon": "/img/favicon.ico", "links": []}
+DEFAULT = {"favicon": "/img/site/pixel-mint.svg", "links": []}
 VOID_TAGS = {"area", "base", "br", "col", "embed", "hr", "img", "input", "link", "meta", "param", "source", "track", "wbr"}
+
+
+def validate_svg(data):
+    if not data or len(data) > 2 * 1024 * 1024:
+        raise ValueError("SVG 图标不能超过 2 MB")
+    try:
+        text = data.decode("utf-8-sig")
+        text = re.sub(r"^\s*<\?xml\s[^?]*\?>", "", text, count=1)
+        if "<!" in text or "<?" in text:
+            raise ValueError("SVG 图标不能包含实体、DOCTYPE、外部样式表或其他声明")
+        document = ET.fromstring(text)
+    except (UnicodeError, ET.ParseError) as error:
+        raise ValueError("请输入有效的 UTF-8 SVG 文件") from error
+    namespace = "{http://www.w3.org/2000/svg}"
+    if document.tag != namespace + "svg":
+        raise ValueError("SVG 图标缺少标准 SVG 根元素")
+    allowed = {"svg", "g", "path", "rect", "circle", "ellipse", "line", "polyline", "polygon", "title", "desc"}
+    numeric = {"x", "y", "width", "height", "rx", "ry", "cx", "cy", "r", "x1", "x2", "y1", "y2", "stroke-width"}
+    for element in document.iter():
+        if not element.tag.startswith(namespace) or element.tag[len(namespace):] not in allowed:
+            raise ValueError("SVG 仅支持静态几何图形，不能包含脚本、外链、图片或动画")
+        for name, value in element.attrib.items():
+            if name in ("fill", "stroke"):
+                valid = value == "none" or bool(re.fullmatch(r"#(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})", value))
+            elif name in numeric:
+                valid = bool(re.fullmatch(r"-?\d+(?:\.\d+)?", value))
+            elif name in ("viewBox", "points"):
+                valid = bool(re.fullmatch(r"[-\d.,\s]+", value))
+            elif name == "d":
+                valid = bool(re.fullmatch(r"[MmZzLlHhVvCcSsQqTtAaEe\d\s.,+\-]+", value))
+            elif name == "shape-rendering":
+                valid = value in ("auto", "crispEdges", "geometricPrecision")
+            elif name == "fill-rule":
+                valid = value in ("nonzero", "evenodd")
+            elif name == "role":
+                valid = value == "img"
+            elif name == "aria-label":
+                valid = len(value) <= 200
+            else:
+                valid = False
+            if not valid:
+                raise ValueError("SVG 包含不支持或不安全的属性：" + name)
+    viewbox = document.get("viewBox", "").replace(",", " ").split()
+    if len(viewbox) != 4 or not all(re.fullmatch(r"-?\d+(?:\.\d+)?", part) for part in viewbox) or float(viewbox[2]) <= 0 or float(viewbox[3]) <= 0:
+        raise ValueError("SVG 需要有效的 viewBox 和正数宽高")
 
 
 def validate(record, root):
@@ -19,12 +66,16 @@ def validate(record, root):
         path = (root / favicon.lstrip("/")).resolve()
         if not favicon.startswith("/img/") or not path.is_relative_to((root / "img").resolve()) or not path.is_file():
             raise ValueError("网站图标必须选择 /img/ 下已存在的本地图片")
-        if path.suffix.lower() not in (".png", ".ico"):
-            raise ValueError("网站图标仅支持 PNG 或 ICO")
+        if path.suffix.lower() not in (".png", ".ico", ".svg"):
+            raise ValueError("网站图标仅支持 PNG、ICO 或安全的静态 SVG")
         data = path.read_bytes()
         if len(data) > 2 * 1024 * 1024:
             raise ValueError("网站图标不能超过 2 MB")
-        valid = data.startswith(b"\x89PNG\r\n\x1a\n") if path.suffix.lower() == ".png" else data.startswith(b"\x00\x00\x01\x00") and len(data) >= 22 and int.from_bytes(data[4:6], "little") > 0
+        if path.suffix.lower() == ".svg":
+            validate_svg(data)
+            valid = True
+        else:
+            valid = data.startswith(b"\x89PNG\r\n\x1a\n") if path.suffix.lower() == ".png" else data.startswith(b"\x00\x00\x01\x00") and len(data) >= 22 and int.from_bytes(data[4:6], "little") > 0
         if not valid:
             raise ValueError("网站图标内容与扩展名不符")
     if not isinstance(record["links"], list) or len(record["links"]) > 20:
@@ -128,8 +179,11 @@ def style_document(document, record, root):
     favicon = ""
     if record["favicon"]:
         path = root / record["favicon"].lstrip("/")
-        version = hashlib.sha256(path.read_bytes()).hexdigest()[:12]
-        mime = "image/png" if path.suffix.lower() == ".png" else "image/x-icon"
+        data = path.read_bytes()
+        if path.suffix.lower() == ".svg":
+            data = data.replace(b"\r\n", b"\n")
+        version = hashlib.sha256(data).hexdigest()[:12]
+        mime = {".png": "image/png", ".ico": "image/x-icon", ".svg": "image/svg+xml"}[path.suffix.lower()]
         url = quote(record["favicon"], safe="/")
         favicon = f'<link rel="icon" type="{mime}" href="{url}?v={version}">'
     return SiteMarkup(document, profile_links(record), favicon).render()

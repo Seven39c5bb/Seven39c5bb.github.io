@@ -30,7 +30,7 @@ PRIVATE = ROOT / ".blog-manager"
 UI = ROOT / "scripts/manager"
 LOCK = threading.RLock()
 SLUG = re.compile(r"[a-z0-9]+(?:-[a-z0-9]+)*")
-IMAGE_TYPES = {".png", ".jpg", ".jpeg", ".gif", ".webp", ".ico"}
+IMAGE_TYPES = {".png", ".jpg", ".jpeg", ".gif", ".webp", ".ico", ".svg"}
 
 
 def backend_revision():
@@ -256,12 +256,15 @@ def images():
 
 def decode_image(payload, allow_ico=False):
     extension = Path(payload["name"]).suffix.lower()
-    allowed = IMAGE_TYPES if allow_ico else IMAGE_TYPES - {".ico"}
+    allowed = IMAGE_TYPES if allow_ico else IMAGE_TYPES - {".ico", ".svg"}
     if extension not in allowed:
-        raise ValueError("不支持该图片格式，请使用 PNG、JPEG、GIF、WebP" + (" 或 ICO" if allow_ico else ""))
+        raise ValueError("不支持该图片格式，请使用 PNG、JPEG、GIF、WebP" + ("、ICO 或安全 SVG" if allow_ico else ""))
     data = base64.b64decode(payload["data"], validate=True)
     if not data or len(data) > 12 * 1024 * 1024:
         raise ValueError("图片大小需在 1 字节至 12 MB 之间")
+    if extension == ".svg":
+        build_site.validate_svg(data)
+        return data, ".svg"
     detected = (".png" if data.startswith(b"\x89PNG\r\n\x1a\n") else
                 ".jpg" if data.startswith(b"\xff\xd8\xff") else
                 ".gif" if data.startswith((b"GIF87a", b"GIF89a")) else
@@ -274,8 +277,8 @@ def decode_image(payload, allow_ico=False):
 
 def upload(payload, favicon=False):
     data, detected = decode_image(payload, allow_ico=favicon)
-    if favicon and (detected not in (".png", ".ico") or len(data) > 2 * 1024 * 1024):
-        raise ValueError("网站图标仅支持 2 MB 以内的 PNG 或 ICO")
+    if favicon and (detected not in (".png", ".ico", ".svg") or len(data) > 2 * 1024 * 1024):
+        raise ValueError("网站图标仅支持 2 MB 以内的 PNG、ICO 或安全 SVG")
     digest = hashlib.sha256(data).hexdigest()
     directory = ROOT / ("img/site" if favicon else "img/games/uploads")
     for existing in directory.glob("*"):
