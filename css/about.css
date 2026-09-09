@@ -2,4 +2,4 @@
 .managed-about .about-avatar{width:112px;height:112px;border-radius:50%;object-fit:cover;margin-bottom:20px}
 .managed-about .about-tagline{font-size:1.1em;opacity:.7;margin-bottom:32px}
 .managed-about .about-links{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px}
-.managed-about .about-link{padding:8px 18px;border:1px solid #84ad9844;border-radius:8px}
+.managed-about .about-link{padding:8px 18px;border:1px solid var(--site-border-color);border-radius:8px}

@@ -1,20 +1,21 @@
 import hashlib
 import json
 import re
+from pathlib import Path
 
 
 DEFAULT = {
     "transition_color": "#39c5bb",
-    "primary_color": "#49b1f5",
-    "hover_color": "#ff7242",
-    "light_background": "#ffffff",
-    "dark_background": "#0d0d0d",
-    "light_card": "#ffffff",
-    "dark_card": "#121212",
-    "card_radius": 8,
-    "font_size": 14,
+    "primary_color": "#387f79",
+    "hover_color": "#2c6863",
+    "light_background": "#f2f5f1",
+    "dark_background": "#182522",
+    "light_card": "#fcfdf9",
+    "dark_card": "#22332f",
+    "card_radius": 16,
+    "font_size": 15,
     "header_height": 400,
-    "transition_duration": 500,
+    "transition_duration": 350,
 }
 LIMITS = {"card_radius": (0, 32), "font_size": (12, 22),
           "header_height": (200, 600), "transition_duration": (0, 2000)}
@@ -45,6 +46,11 @@ def stylesheet(record):
     red, green, blue = (int(primary[offset:offset + 2], 16) for offset in (1, 3, 5))
     return f''':root, [data-theme="light"], [data-theme="dark"] {{
   --site-transition-color: {values["transition_color"]};
+  --site-brand-color: {values["transition_color"]};
+  --site-configured-primary: {primary};
+  --site-configured-hover: {values["hover_color"]};
+  --site-card-radius: {values["card_radius"]}px;
+  --global-font-size: {values["font_size"]}px;
   --site-primary-color: {primary};
   --site-hover-color: {values["hover_color"]};
   --btn-bg: {primary};
@@ -53,7 +59,7 @@ def stylesheet(record):
   --scrollbar-color: {primary};
   --default-bg-color: {primary};
   --preloader-bg: {values["transition_color"]};
-  --text-bg-hover: rgba({red}, {green}, {blue}, 0.7);
+  --text-bg-hover: {primary};
   --blockquote-bg: rgba({red}, {green}, {blue}, 0.1);
   --hr-border: {primary};
   --hr-before-color: {primary};
@@ -80,7 +86,7 @@ body {{ font-size: {values["font_size"]}px; }}
   animation: site-header-tint {values["transition_duration"]}ms ease-out;
 }}
 @keyframes site-header-tint {{
-  from {{ opacity: 0.85; }}
+  from {{ opacity: 0.24; }}
   to {{ opacity: 0; }}
 }}
 #page-header.not-home-page:not(.not-top-img) {{ height: {values["header_height"]}px; }}
@@ -95,12 +101,19 @@ body {{ font-size: {values["font_size"]}px; }}
   #page-header {{ transition-duration: 0ms; }}
   #page-header::after {{ animation: none; }}
 }}
-'''
+''' + (Path(__file__).resolve().parent.parent / "css/palette.css").read_text(encoding="utf-8")
 
 
 def style_document(document, version):
     document = re.sub(r'<link\b[^>]*href="/css/appearance\.css(?:\?[^"]*)?"[^>]*>\s*', "", document)
     document = document.replace('href="/css/custom.css" media="defer" onload="this.media=\'all\'"', 'href="/css/custom.css"')
+    inline_colors = {"#ddd": "var(--site-border-color)", "#eee": "var(--site-soft-bg)",
+                     "#999": "var(--site-muted-color)", "$theme-color": "var(--site-primary-color)"}
+    def theme_inline_style(match):
+        return re.sub(r"#(?:ddd|eee|999)\b|\$theme-color", lambda color: inline_colors[color.group()], match.group())
+    document = re.sub(r'\bstyle="[^"]*"', theme_inline_style, document)
+    document = re.sub(r'(<script\b[^>]*id="canvas_nest"[^>]*\bcolor=")[^"]*', r'\g<1>107,153,145', document)
+    document = re.sub(r'(<script\b[^>]*id="canvas_nest"[^>]*\bopacity=")[^"]*', r'\g<1>0.25', document)
     return document.replace("</head>", f'<link rel="stylesheet" href="/css/appearance.css?v={version}">\n</head>', 1)
 
 

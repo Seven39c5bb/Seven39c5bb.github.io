@@ -11,7 +11,7 @@ const appearanceNumbers = {
 function renderAppearance() {
   if (!state.appearance || state.needsRestart) return empty('请重启工作台服务', '关闭旧终端后重新双击 manage-blog.cmd，加载新版样式管理功能。');
   const record = state.appearance;
-  return `<section class="panel guide-card"><p class="eyebrow">YOUR BLOG, YOUR PALETTE</p><h2>让博客有自己的颜色</h2><p>切换动画已设为 ${escapeHtml(record.transition_color)}。进入页面时彩色遮罩渐隐，结束后恢复原有透明头图与背景图片；同步加载样式避免闪现旧颜色。</p><div class="appearance-swatches">${Object.entries(appearanceColors).map(([name, label]) => `<div><span style="background:${escapeHtml(record[name])}"></span><strong>${label}</strong><code>${escapeHtml(record[name])}</code></div>`).join('')}</div><p>${Object.entries(appearanceNumbers).map(([name, [label, , , unit]]) => `${label}：${record[name]} ${unit}`).join(' · ')}</p><div class="page-links"><button class="button primary" data-studio="edit-appearance">编辑样式与颜色</button><a class="button" href="/projects/" target="_blank" rel="noopener">预览博客 ↗</a></div><p>保存仅更新本地文件；确认效果后到「云端同步」发布。背景图片会覆盖页面背景色，深色模式保留主题原有图片亮度处理。</p></section>`;
+  return `<section class="panel guide-card"><p class="eyebrow">YOUR BLOG, YOUR PALETTE</p><h2>让博客有自己的颜色</h2><p>切换动画已设为 ${escapeHtml(record.transition_color)}。进入页面时彩色遮罩渐隐，以轻柔过渡融入雾青遮罩与背景图片；同步加载样式避免闪现旧颜色。</p><div class="appearance-swatches">${Object.entries(appearanceColors).map(([name, label]) => `<div><span style="background:${escapeHtml(record[name])}"></span><strong>${label}</strong><code>${escapeHtml(record[name])}</code></div>`).join('')}</div><p>${Object.entries(appearanceNumbers).map(([name, [label, , , unit]]) => `${label}：${record[name]} ${unit}`).join(' · ')}</p><div class="page-links"><button class="button primary" data-studio="edit-appearance">编辑样式与颜色</button><a class="button" href="/projects/" target="_blank" rel="noopener">预览博客 ↗</a></div><p>保存仅更新本地文件；确认效果后到「云端同步」发布。背景图经过降饱和与柔和遮罩处理；正文、导航、卡片与代码块会随明暗模式统一切换。</p></section>`;
 }
 
 function appearanceFields(record) {
@@ -41,10 +41,12 @@ function updateAppearancePreview() {
   for (const mode of ['light', 'dark']) {
     const preview = select(`#appearance-preview-${mode}`);
     preview.style.backgroundColor = record[`${mode}_background`];
-    preview.style.color = mode === 'dark' ? '#eeeeee' : '#333333';
+    preview.style.color = mode === 'dark' ? '#d4e0d8' : '#3e514c';
     preview.style.fontSize = `${record.font_size}px`;
     const header = preview.querySelector('.appearance-preview-header');
     header.style.backgroundColor = record.transition_color;
+    header.style.backgroundImage = 'linear-gradient(135deg, #1b413bc2, #243f37ad)';
+    header.style.color = '#f4f8f4';
     header.style.height = `${record.header_height / 4}px`;
     header.style.transitionDuration = `${record.transition_duration}ms`;
     const card = preview.querySelector('.appearance-preview-card');
@@ -52,6 +54,7 @@ function updateAppearancePreview() {
     card.style.borderRadius = `${record.card_radius}px`;
     preview.style.setProperty('--preview-primary', record.primary_color);
     preview.style.setProperty('--preview-hover', record.hover_color);
+    preview.querySelector('.appearance-preview-button').style.color = '#fcfdf9';
   }
 }
 

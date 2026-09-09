@@ -32,7 +32,7 @@
 }
 .game-card h2 a:hover,
 .game-back a {
-  color: #49b1f5;
+  color: var(--site-primary-color);
 }
 .game-card p {
   display: -webkit-box;
@@ -45,7 +45,7 @@
   display: inline-block;
   padding: 3px 12px;
   border-radius: 5px;
-  background: rgba(73, 177, 245, 0.13);
+  background: var(--site-tint);
   color: var(--font-color);
   font-weight: 600;
 }
@@ -62,8 +62,8 @@
 .game-import-note {
   margin: 24px 0 36px;
   padding: 12px 16px;
-  border-left: 3px solid #49b1f5;
-  background: rgba(73, 177, 245, 0.08);
+  border-left: 3px solid var(--site-primary-color);
+  background: var(--site-tint);
   color: var(--card-meta);
   font-size: 0.9em;
   line-height: 1.9;

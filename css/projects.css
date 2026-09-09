@@ -1,18 +1,18 @@
 .projects-index,
 .projects-teaser {
-  --project-accent: #7360c9;
-  --project-tint: rgba(115, 96, 201, 0.08);
+  --project-accent: var(--site-primary-color);
+  --project-tint: var(--site-tint);
 }
 .projects-teaser {
-  background: linear-gradient(120deg, #eef1fc, #f7eef8 65%, #eaf5f5);
-  color: #363851;
+  background: linear-gradient(120deg, var(--site-tint), var(--card-bg) 65%, var(--site-soft-bg));
+  color: var(--font-color);
   border-radius: 12px;
 }
 .projects-eyebrow {
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.2em;
-  color: #6b5cad;
+  color: var(--site-primary-color);
 }
 .projects-section-heading {
   display: flex;
@@ -33,7 +33,7 @@
 }
 .projects-empty {
   padding: 42px 22px;
-  border: 1px dashed rgba(115, 96, 201, 0.35);
+  border: 1px dashed var(--site-accent-soft);
   border-radius: 12px;
   text-align: center;
   background: var(--project-tint);
@@ -44,7 +44,7 @@
   width: 64px;
   height: 64px;
   border-radius: 20px;
-  background: rgba(115, 96, 201, 0.12);
+  background: var(--site-tint);
   color: var(--project-accent);
   font-size: 28px;
 }
@@ -207,14 +207,14 @@
   min-height: 44px;
   padding: 10px 18px;
   border-radius: 8px;
-  background: #7060ba;
+  background: var(--btn-bg);
   color: #fff;
   font-size: 13px;
   line-height: 1.6;
   text-decoration: none;
 }
 .project-button:hover {
-  background: #584999;
+  background: var(--btn-hover-color);
   color: #fff;
 }
 .project-button:focus-visible,
@@ -255,15 +255,15 @@
 }
 [data-theme="dark"] .projects-index,
 [data-theme="dark"] .projects-teaser {
-  --project-accent: #b7a8f2;
-  --project-tint: rgba(183, 168, 242, 0.08);
+  --project-accent: var(--site-primary-color);
+  --project-tint: var(--site-tint);
 }
 [data-theme="dark"] .projects-teaser {
-  background: linear-gradient(120deg, #292b40, #342a3c 65%, #263738);
-  color: #e1def0;
+  background: linear-gradient(120deg, var(--site-tint), var(--card-bg) 65%, var(--site-soft-bg));
+  color: var(--font-color);
 }
 [data-theme="dark"] .projects-eyebrow {
-  color: #c2b4f0;
+  color: var(--site-primary-color);
 }
 @media (max-width: 700px) {
   .projects-grid {

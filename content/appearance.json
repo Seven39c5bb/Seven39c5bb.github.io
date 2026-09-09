@@ -1,13 +1,13 @@
 {
   "transition_color": "#39c5bb",
-  "primary_color": "#49b1f5",
-  "hover_color": "#ff7242",
-  "light_background": "#ffffff",
-  "dark_background": "#0d0d0d",
-  "light_card": "#ffffff",
-  "dark_card": "#121212",
-  "card_radius": 8,
-  "font_size": 14,
+  "primary_color": "#387f79",
+  "hover_color": "#2c6863",
+  "light_background": "#f2f5f1",
+  "dark_background": "#182522",
+  "light_card": "#fcfdf9",
+  "dark_card": "#22332f",
+  "card_radius": 16,
+  "font_size": 15,
   "header_height": 400,
-  "transition_duration": 500
+  "transition_duration": 350
 }
