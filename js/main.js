@@ -380,35 +380,17 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /**
-   * rightside scroll percent
-   */
-  const rightsideScrollPercent = currentTop => {
-    const scrollPercent = btf.getScrollPercent(currentTop, document.body)
-    const goUpElement = document.getElementById('go-up')
-
-    if (scrollPercent < 95) {
-      goUpElement.classList.add('show-percent')
-      goUpElement.querySelector('.scroll-percent').textContent = scrollPercent
-    } else {
-      goUpElement.classList.remove('show-percent')
-    }
-  }
-
-  /**
    * 滾動處理
    */
   const scrollFn = () => {
-    const $rightside = document.getElementById('rightside')
     const innerHeight = window.innerHeight + 56
     let initTop = 0
     const $header = document.getElementById('page-header')
     const isChatBtn = typeof chatBtn !== 'undefined'
-    const isShowPercent = GLOBAL_CONFIG.percent.rightside
 
     // 檢查文檔高度是否小於視窗高度
     const checkDocumentHeight = () => {
       if (document.body.scrollHeight <= innerHeight) {
-        $rightside.classList.add('rightside-show')
         return true
       }
       return false
@@ -431,10 +413,9 @@ document.addEventListener('DOMContentLoaded', () => {
       if (currentTop > 56) {
         if (flag === '') {
           $header.classList.add('nav-fixed')
-          $rightside.classList.add('rightside-show')
         }
 
-        if (isDown) {
+        if (isDown && !navigationTools.open) {
           if (flag !== 'down') {
             $header.classList.remove('nav-visible')
             isChatBtn && window.chatBtn.hide()
@@ -452,10 +433,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if (currentTop === 0) {
           $header.classList.remove('nav-fixed', 'nav-visible')
         }
-        $rightside.classList.remove('rightside-show')
       }
 
-      isShowPercent && rightsideScrollPercent(currentTop)
       checkDocumentHeight()
     }, 300)
 
@@ -620,17 +599,6 @@ document.addEventListener('DOMContentLoaded', () => {
       btf.saveToLocal.set('theme', willChangeMode, 2)
       handleThemeChange(willChangeMode)
     },
-    'rightside-config': item => { // Show or hide rightside-hide-btn
-      const hideLayout = item.firstElementChild
-      if (hideLayout.classList.contains('show')) {
-        hideLayout.classList.add('status')
-        setTimeout(() => {
-          hideLayout.classList.remove('status')
-        }, 300)
-      }
-
-      hideLayout.classList.toggle('show')
-    },
     'go-up': () => { // Back to top
       btf.scrollToDest(0, 500)
     },
@@ -665,12 +633,33 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  document.getElementById('rightside').addEventListener('click', e => {
-    const $target = e.target.closest('[id]')
-    if ($target && rightSideFn[$target.id]) {
-      rightSideFn[$target.id](e.currentTarget, $target)
+  const navigationTools = document.getElementById('nav-tools')
+  const closeNavigationTools = () => {
+    navigationTools.open = false
+  }
+  navigationTools.addEventListener('click', event => {
+    const button = event.target.closest('button')
+    if (!button) return
+    const action = rightSideFn[button.dataset.tool || button.id]
+    if (action) {
+      action(navigationTools, button)
+      closeNavigationTools()
+      navigationTools.querySelector('summary').focus()
     }
   })
+  document.addEventListener('click', event => {
+    if (!navigationTools.contains(event.target)) closeNavigationTools()
+  })
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && navigationTools.open) {
+      closeNavigationTools()
+      navigationTools.querySelector('summary').focus()
+    }
+  })
+  document.addEventListener('focusin', event => {
+    if (!navigationTools.contains(event.target)) closeNavigationTools()
+  })
+  btf.addGlobalFn('pjaxComplete', closeNavigationTools, 'closeNavigationTools')
 
   /**
    * menu

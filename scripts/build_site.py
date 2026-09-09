@@ -9,6 +9,12 @@ from urllib.parse import quote, urlsplit
 
 DEFAULT = {"favicon": "/img/site/pixel-mint.svg", "links": []}
 VOID_TAGS = {"area", "base", "br", "col", "embed", "hr", "img", "input", "link", "meta", "param", "source", "track", "wbr"}
+NAV_TOOLS = '''<details id="nav-tools"><summary title="阅读设置" aria-label="阅读设置"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="5" cy="12" r="1.75"/><circle cx="12" cy="12" r="1.75"/><circle cx="19" cy="12" r="1.75"/></svg></summary><div class="nav-tools-panel" role="group" aria-label="阅读工具">
+<button type="button" data-tool="translateLink"><span class="nav-tool-icon" id="translateLink" aria-hidden="true">简</span><span>简繁转换</span></button>
+<button type="button" id="darkmode"><span class="nav-tool-icon" aria-hidden="true">◐</span><span>切换明暗</span></button>
+<button type="button" id="hide-aside-btn"><span class="nav-tool-icon" aria-hidden="true">↔</span><span>单栏 / 双栏</span></button>
+<button type="button" id="go-up"><span class="nav-tool-icon" aria-hidden="true">↑</span><span>回到顶部</span></button>
+</div></details>'''
 
 
 def validate_svg(data):
@@ -137,8 +143,10 @@ class SiteMarkup(HTMLParser):
             self.edits.append((start, start + len(self.get_starttag_text()), ""))
         if tag in VOID_TAGS:
             return
-        remove = bool(classes & {"site-data", "card-info-social-icons", "managed-profile-links"}) or attrs.get("id") == "site_social_icons"
-        insert = attrs.get("id") in {"site-info", "sidebar-menus"} or {"card-widget", "card-info"}.issubset(classes)
+        remove = bool(classes & {"site-data", "card-info-social-icons", "managed-profile-links"}) or attrs.get("id") in {"site_social_icons", "rightside", "nav-tools"}
+        insert = self.links if attrs.get("id") in {"site-info", "sidebar-menus"} or {"card-widget", "card-info"}.issubset(classes) else ""
+        if tag == "nav" and attrs.get("id") == "nav":
+            insert = NAV_TOOLS
         self.frames.append((tag, start, remove, insert))
 
     def handle_startendtag(self, tag, attributes):
@@ -158,8 +166,8 @@ class SiteMarkup(HTMLParser):
             if remove:
                 end = self.document.index(">", start) + 1
                 self.edits.append((frame_start, end, ""))
-            elif insert and self.links:
-                self.edits.append((start, start, self.links))
+            elif insert:
+                self.edits.append((start, start, insert))
             break
 
     def render(self):
