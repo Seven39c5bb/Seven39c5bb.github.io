@@ -49,10 +49,10 @@ async function api(path, payload) {
 async function load() {
   const response = await api('state');
   Object.assign(state, response, {projects: response.projects, about: response.about});
-  state.needsRestart = !response.server_info || response.server_info.needs_restart || !response.projects || !response.about || !response.appearance;
+  state.needsRestart = !response.server_info || response.server_info.needs_restart || !response.projects || !response.about || !response.appearance || !response.site;
   const warning = select('#service-warning');
   warning.hidden = !state.needsRestart;
-  warning.textContent = state.needsRestart ? '当前连接的是旧版工作台服务，作品和关于页面的编辑功能尚未加载。仅刷新网页无效：请先关闭所有运行 blog_manager.py 的旧终端窗口，再双击 manage-blog.cmd。如果仍有端口占用，可运行 python scripts/blog_manager.py --port 8766，打开新地址。' : '';
+  warning.textContent = state.needsRestart ? '当前连接的是旧版工作台服务，网站设置等新版编辑功能尚未加载。仅刷新网页无效：请先关闭所有运行 blog_manager.py 的旧终端窗口，再双击 manage-blog.cmd。如果仍有端口占用，可运行 python scripts/blog_manager.py --port 8766，打开新地址。' : '';
   select('#nav-count').textContent = state.records.filter(record => record.status !== 'trash').length;
   render();
 }
@@ -123,6 +123,7 @@ function guide() {
 function render() {
   const names = {overview: ['博客概览', '把想法写下来，让热爱有迹可循。'], articles: ['文章管理', '整理每一次冒险，也收藏每一个灵感。'], media: ['图片素材', '让文字之外的画面，也井井有条。'], trash: ['回收站', '暂时收起的记录，随时可以重新开始。'], guide: ['使用指南', '一个轻量、安心、属于你的博客工作台。'], projects: ['游戏作品', '从想法到可游玩的世界，管理你的创作。'], about: ['关于页面', '让读者认识作品背后的你。'], cloud: ['云端同步', '检查文件，确认发布，同步到 GitHub。']};
   names.appearance = ['样式与颜色', '调配博客的颜色与外观，预览后再发布。'];
+  names.site = ['网站设置', '管理各平台个人主页与浏览器标签页小图标。'];
   const [title, subtitle] = names[state.view];
   select('#breadcrumb').textContent = state.view === 'overview' ? '概览' : title;
   select('#page-title').innerHTML = `${title}<span class="heading-dot">.</span>`;
@@ -135,9 +136,14 @@ function render() {
     primaryAction.innerHTML = icon('pen') + '编辑样式与颜色';
     primaryAction.disabled = !state.appearance || state.needsRestart;
   }
+  if (state.view === 'site') {
+    primaryAction.innerHTML = icon('pen') + '编辑网站设置';
+    primaryAction.disabled = !state.site || state.needsRestart;
+  }
   document.querySelectorAll('[data-view]').forEach(button => button.classList.toggle('active', button.dataset.view === state.view));
   if (state.view === 'overview') select('#content').innerHTML = overview();
   else if (state.view === 'appearance') select('#content').innerHTML = renderAppearance();
+  else if (state.view === 'site') select('#content').innerHTML = renderSite();
   else if (['projects', 'about', 'cloud'].includes(state.view)) select('#content').innerHTML = renderStudioView(state.view);
   else if (state.view === 'guide') select('#content').innerHTML = guide();
   else if (state.view === 'media') {
@@ -430,6 +436,7 @@ select('#new-post').addEventListener('click', () => safely(() => {
   if (state.view === 'projects') openStudioEditor('projects');
   else if (state.view === 'about') openStudioEditor('about');
   else if (state.view === 'appearance') openStudioEditor('appearance');
+  else if (state.view === 'site') openStudioEditor('site');
   else openEditor();
 }));
 select('#refresh').addEventListener('click', () => safely(async () => { await load(); toast('数据已刷新'); }));

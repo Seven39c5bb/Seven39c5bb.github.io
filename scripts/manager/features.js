@@ -29,7 +29,11 @@ function openStudioEditor(kind, index = -1) {
   studio.revision = state[`${kind}_revision`];
   studio.original = JSON.parse(JSON.stringify(state[kind]));
   select('#studio-dialog-title').textContent = kind === 'projects' ? (index < 0 ? '新增游戏作品' : '编辑游戏作品') : '编辑关于页面';
-  if (kind === 'appearance') {
+  if (kind === 'site') {
+    select('#studio-dialog-title').textContent = '个人主页与网站图标';
+    select('#studio-fields').innerHTML = siteFields(studio.original);
+    updateSiteIconPreview();
+  } else if (kind === 'appearance') {
     select('#studio-dialog-title').textContent = '编辑样式与颜色';
     select('#studio-fields').innerHTML = appearanceFields(studio.original);
     updateAppearancePreview();
@@ -54,7 +58,9 @@ async function saveStudioEditor(event) {
   if (studio.busy) return;
   const fields = Object.fromEntries(new FormData(select('#studio-form')).entries());
   let record;
-  if (studio.kind === 'appearance') {
+  if (studio.kind === 'site') {
+    record = siteRecord(fields);
+  } else if (studio.kind === 'appearance') {
     record = appearanceRecord(fields);
   } else if (studio.kind === 'projects') {
     const project = {...(studio.original[studio.index] || {}), ...fields, tags: fields.tags.split(/[,，]/).map(tag => tag.trim()).filter(Boolean)};
@@ -91,6 +97,7 @@ async function studioAction(button) {
   if (action === 'edit-project') return openStudioEditor('projects', index);
   if (action === 'edit-about') return openStudioEditor('about');
   if (action === 'edit-appearance') return openStudioEditor('appearance');
+  if (action === 'edit-site') return openStudioEditor('site');
   if (['delete-project', 'move-up', 'move-down'].includes(action)) {
     const records = [...state.projects];
     if (action === 'delete-project') {

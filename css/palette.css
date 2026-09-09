@@ -368,6 +368,45 @@ html.home-landing #web_bg::before { background: transparent; }
   .game-grid, .projects-grid { gap: 20px; }
 }
 
+.avatar-img img, .avatar-img img:hover, .managed-about .about-avatar:hover {
+  transform: none;
+  animation: none;
+}
+
+.managed-profile-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin: 20px 0 0;
+}
+
+.managed-profile-links a {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 12px;
+  border: 1px solid var(--site-border-color);
+  border-radius: 9px;
+  background: var(--site-tint);
+  color: var(--site-label-color);
+  font-size: 13px;
+  overflow-wrap: anywhere;
+}
+
+.managed-profile-links a:hover {
+  border-color: var(--site-primary-color);
+  color: var(--site-hover-color);
+}
+
+#site-info .managed-profile-links a {
+  background: rgba(24, 45, 36, 0.48);
+  border-color: rgba(244, 248, 244, 0.3);
+  color: var(--site-header-text);
+}
+
+#site-info .managed-profile-links a:hover { border-color: var(--site-brand-color); }
+#sidebar-menus .managed-profile-links { padding: 0 16px 20px; }
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;

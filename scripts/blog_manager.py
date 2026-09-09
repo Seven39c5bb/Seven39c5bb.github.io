@@ -21,6 +21,7 @@ import build_games
 import build_about
 import build_projects
 import build_appearance
+import build_site
 from cloud_sync import CloudSync
 
 
@@ -132,17 +133,20 @@ def studio_state():
             "about": build_about.read_about(ROOT), "about_revision": revision(ROOT / "content/about.json"),
             "appearance": build_appearance.read_appearance(ROOT),
             "appearance_defaults": build_appearance.DEFAULT,
-            "appearance_revision": revision(ROOT / "content/appearance.json")}
+            "appearance_revision": revision(ROOT / "content/appearance.json"),
+            "site": build_site.read_site(ROOT), "site_revision": revision(ROOT / "content/site.json")}
 
 
 def save_document(kind, payload):
-    if kind not in ("projects", "about", "appearance"):
+    if kind not in ("projects", "about", "appearance", "site"):
         raise ValueError("未知的资料类型")
     path = ROOT / f"content/{kind}.json"
     if revision(path) != payload.get("revision"):
         raise ValueError("资料已被其他窗口修改，请刷新页面后重新编辑")
     record = payload["record"]
-    if kind == "appearance":
+    if kind == "site":
+        record = build_site.validate(record, ROOT)
+    elif kind == "appearance":
         record = build_appearance.validate(record)
     elif kind == "about":
         build_about.validate_about(record, ROOT)
@@ -268,10 +272,12 @@ def decode_image(payload, allow_ico=False):
     return data, detected
 
 
-def upload(payload):
-    data, detected = decode_image(payload)
+def upload(payload, favicon=False):
+    data, detected = decode_image(payload, allow_ico=favicon)
+    if favicon and (detected not in (".png", ".ico") or len(data) > 2 * 1024 * 1024):
+        raise ValueError("网站图标仅支持 2 MB 以内的 PNG 或 ICO")
     digest = hashlib.sha256(data).hexdigest()
-    directory = ROOT / "img/games/uploads"
+    directory = ROOT / ("img/site" if favicon else "img/games/uploads")
     for existing in directory.glob("*"):
         if existing.is_file() and existing.suffix.lower().replace(".jpeg", ".jpg") == detected:
             if not existing.resolve().is_relative_to(directory.resolve()):
@@ -350,7 +356,7 @@ class Handler(BaseHTTPRequestHandler):
             with LOCK:
                 if route == "/api/state":
                     return self.respond({"records": list_records(), "images": images(), "token": self.server.token,
-                                         "server_info": {"app": "seven-blog-studio", "api_version": 2,
+                                         "server_info": {"app": "seven-blog-studio", "api_version": 3,
                                                          "revision": BACKEND_REVISION, "workspace": WORKSPACE_ID,
                                                          "needs_restart": backend_revision() != BACKEND_REVISION}, **studio_state()})
                 if route == "/api/backup":
@@ -410,6 +416,10 @@ class Handler(BaseHTTPRequestHandler):
                     result = save_document("about", payload)
                 elif self.path == "/api/appearance/save":
                     result = save_document("appearance", payload)
+                elif self.path == "/api/site/save":
+                    result = save_document("site", payload)
+                elif self.path == "/api/site/icon/upload":
+                    result = upload(payload, favicon=True)
                 elif self.path == "/api/cloud/prepare":
                     generate()
                     result = self.server.cloud.prepare()

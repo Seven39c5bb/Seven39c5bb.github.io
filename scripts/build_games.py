@@ -8,6 +8,7 @@ from pathlib import Path
 from build_projects import add_projects
 from build_about import add_about
 from build_appearance import add_appearance
+from build_site import add_site
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -235,6 +236,7 @@ def build():
     for path, document in list(outputs.items()):
         if path.endswith(".html"):
             outputs[path] = shared(document, post_count, tag_count, category_count)
+    add_site(outputs, ROOT)
     add_appearance(outputs, ROOT)
     return outputs
 
