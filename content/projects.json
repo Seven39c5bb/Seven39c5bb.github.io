@@ -46,5 +46,17 @@
     "play_url": "",
     "download_url": "",
     "source_url": ""
+  },
+  {
+    "slug": "kui-xi",
+    "title": "傀戏",
+    "description": "一款武侠志怪风格的 2D 平台跳跃游戏，通过使用各种符咒消灭不同的敌人。",
+    "tags": [
+      "2D 平台跳跃",
+      "武侠志怪",
+      "符咒战斗"
+    ],
+    "cover": "/img/projects/kui-xi/cover.png",
+    "bilibili_url": "https://www.bilibili.com/video/BV1im4y1b7CF"
   }
 ]

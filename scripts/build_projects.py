@@ -39,7 +39,7 @@ def load_projects(root):
         if not re.fullmatch(r"[a-z0-9]+(?:-[a-z0-9]+)*", record["slug"]) or record["slug"] in seen:
             raise ValueError(f'Invalid or duplicate project slug: {record["slug"]}')
         seen.add(record["slug"])
-        for field in ("status", "engine", "role", "cover", "steam_url", "itch_url", "play_url", "download_url", "source_url"):
+        for field in ("status", "engine", "role", "cover", "steam_url", "itch_url", "bilibili_url", "play_url", "download_url", "source_url"):
             if field in record and not isinstance(record[field], str):
                 raise ValueError(f"Project {field} must be a string")
         tags = record.get("tags", [])
@@ -52,7 +52,7 @@ def project_card(record, root, eager=False):
     title = html.escape(record["title"])
     cover = '<div class="project-cover project-cover-placeholder" aria-hidden="true"><i class="fas fa-gamepad"></i></div>'
     if record.get("cover"):
-        cover_class = "project-cover project-cover-steam" if record.get("steam_url") else "project-cover"
+        cover_class = "project-cover project-cover-steam" if record.get("steam_url") else "project-cover project-cover-video" if record.get("bilibili_url") else "project-cover"
         loading = "eager" if eager else "lazy"
         cover = f'<div class="{cover_class}"><img src="{safe_url(record["cover"], root, "cover")}" alt="{title} 游戏封面" loading="{loading}" decoding="async"></div>'
     status = f'<span class="project-status">{html.escape(record["status"])}</span>' if record.get("status") else ""
@@ -60,7 +60,7 @@ def project_card(record, root, eager=False):
     details = "".join(f'<div><dt>{label}</dt><dd>{html.escape(record[field])}</dd></div>'
                       for field, label in [("engine", "开发引擎"), ("role", "我的职责")] if record.get(field))
     actions = []
-    for field, label in [("steam_url", "在 Steam 查看"), ("itch_url", "在 itch.io 查看"), ("play_url", "开始游玩"), ("download_url", "下载游戏"), ("source_url", "查看源码")]:
+    for field, label in [("steam_url", "在 Steam 查看"), ("itch_url", "在 itch.io 查看"), ("bilibili_url", "在 B 站观看"), ("play_url", "开始游玩"), ("download_url", "下载游戏"), ("source_url", "查看源码")]:
         if record.get(field):
             address = safe_url(record[field], root, field)
             external = ' target="_blank" rel="noopener noreferrer"' if record[field].startswith("https://") else ""
