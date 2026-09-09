@@ -77,9 +77,6 @@ def add_projects(outputs, root, template, make_page):
 <h3>下一次冒险，从这里开始</h3><p>作品资料正在整理中，之后会在这里分享游戏画面、开发故事与游玩入口。</p>
 <a class="project-text-link" href="/games/">先看看我的游戏评测 <span aria-hidden="true">→</span></a></div>'''
     content = f'''<div id="page" class="projects-index">
-<section class="projects-hero" aria-labelledby="projects-heading"><span class="projects-eyebrow">MADE BY SEVEN</span>
-<h2 id="projects-heading">不止游玩，也创造世界。</h2><p>{DESCRIPTION}</p>
-<div class="projects-hero-footer"><span>游戏 · 原型 · 创意实验</span><span>{f'{len(records):02d} 个作品' if records else '作品整理中'}</span></div></section>
 <section class="projects-collection" aria-labelledby="collection-heading"><div class="projects-section-heading"><h2 id="collection-heading">我的作品</h2><span>MY GAMES</span></div>
 {f'<div class="projects-grid">{cards}</div>' if records else empty}</section></div>'''
     outputs["projects/index.html"] = make_page(template, TITLE, ROUTE, content, DESCRIPTION)

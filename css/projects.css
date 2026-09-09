@@ -3,14 +3,10 @@
   --project-accent: #7360c9;
   --project-tint: rgba(115, 96, 201, 0.08);
 }
-.projects-hero,
 .projects-teaser {
   background: linear-gradient(120deg, #eef1fc, #f7eef8 65%, #eaf5f5);
   color: #363851;
   border-radius: 12px;
-}
-.projects-hero {
-  padding: clamp(24px, 5vw, 48px);
 }
 .projects-eyebrow {
   font-size: 11px;
@@ -18,34 +14,13 @@
   letter-spacing: 0.2em;
   color: #6b5cad;
 }
-.projects-hero h2 {
-  margin: 18px 0 12px;
-  font-size: clamp(24px, 3vw, 34px);
-  line-height: 1.5;
-  color: inherit;
-}
-.projects-hero p {
-  max-width: 480px;
-  margin: 0;
-  line-height: 1.9;
-}
-.projects-hero-footer {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 12px;
-  margin-top: 32px;
-  padding-top: 18px;
-  border-top: 1px solid rgba(115, 96, 201, 0.18);
-  font-size: 12px;
-}
 .projects-section-heading {
   display: flex;
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 12px;
-  margin: 32px 0 20px;
+  margin: 0 0 20px;
 }
 .projects-section-heading h2 {
   margin: 0;
@@ -224,7 +199,6 @@
   --project-accent: #b7a8f2;
   --project-tint: rgba(183, 168, 242, 0.08);
 }
-[data-theme="dark"] .projects-hero,
 [data-theme="dark"] .projects-teaser {
   background: linear-gradient(120deg, #292b40, #342a3c 65%, #263738);
   color: #e1def0;
