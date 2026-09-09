@@ -4,26 +4,47 @@
     "title": "失光 · Fiat Less",
     "description": "一款融合卡牌构筑与网格战棋的类 Rogue 游戏。深入被异色极光吞噬的摩利亚湾，收集卡牌与遗物，在走位、距离与构筑之间寻找制胜之道。以20世纪初的复古氛围与怪诞手绘美学，呈现一个回响着古神低语的世界。",
     "status": "即将推出",
-    "tags": ["卡牌构筑", "战棋", "类 Rogue", "洛夫克拉夫特式"],
+    "tags": [
+      "卡牌构筑",
+      "战棋",
+      "类 Rogue",
+      "洛夫克拉夫特式"
+    ],
     "cover": "/img/projects/fiat-less/header.jpg",
     "steam_url": "https://store.steampowered.com/app/4614120/Fiat_Less/"
+  },
+  {
+    "slug": "goldenegg",
+    "title": "Goldenegg",
+    "description": "一款以敲金蛋、揭晓惊喜为核心的多人互动游戏原型。通过房间邀请码相聚，轮流点击金蛋，在逐步开裂与破壳动画中揭晓随机物品。手绘风格的金蛋与角色，搭配敲击反馈和物品展示，让简单的点击也充满期待。",
+    "status": "开发中原型",
+    "tags": [
+      "多人联机"
+    ],
+    "engine": "",
+    "cover": "/img/projects/goldenegg/cover.png",
+    "role": "",
+    "steam_url": "",
+    "play_url": "",
+    "download_url": "",
+    "source_url": ""
   },
   {
     "slug": "fish-come",
     "title": "Fish Come",
     "description": "一款开发中的钓鱼收集游戏原型，围绕钓鱼与收集展开。目前提供 Windows 版本，可前往 itch.io 页面下载体验。",
-    "status": "开发中原型",
-    "tags": ["钓鱼", "收集", "Windows"],
+    "status": "开发中",
+    "tags": [
+      "钓鱼",
+      "收集"
+    ],
     "cover": "/img/projects/fish-come/cover.png",
-    "itch_url": "https://seven39c5bb.itch.io/fish-come"
-  },
-  {
-    "slug": "goldenegg",
-    "title": "Goldenegg · 金蛋",
-    "description": "一款以敲金蛋、揭晓惊喜为核心的多人互动游戏原型。通过房间邀请码相聚，轮流点击金蛋，在逐步开裂与破壳动画中揭晓随机物品。手绘风格的金蛋与角色，搭配敲击反馈和物品展示，让简单的点击也充满期待。目前仍在开发中。",
-    "status": "开发中原型",
-    "tags": ["多人联机", "轮流敲蛋", "随机揭晓", "手绘风格"],
-    "engine": "Unity · C#",
-    "cover": "/img/projects/goldenegg/cover.png"
+    "itch_url": "https://seven39c5bb.itch.io/fish-come",
+    "engine": "",
+    "role": "",
+    "steam_url": "",
+    "play_url": "",
+    "download_url": "",
+    "source_url": ""
   }
 ]
