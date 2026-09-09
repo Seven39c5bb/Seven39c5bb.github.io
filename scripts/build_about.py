@@ -1,8 +1,9 @@
 import html
+import hashlib
 import json
 import re
 import xml.etree.ElementTree as ET
-from urllib.parse import urlsplit
+from urllib.parse import quote, unquote, urlsplit
 
 
 DEFAULT = {"name": "Seven", "tagline": "", "avatar": "", "body": "", "links": []}
@@ -38,12 +39,46 @@ def validate_about(record, root):
             raise ValueError("个人链接必须是无账号密码的 HTTPS 地址")
 
 
-def add_about(outputs, root, replace_main):
+def avatar_url(record, root):
+    if not record["avatar"]:
+        return ""
+    path = root / record["avatar"].lstrip("/")
+    version = hashlib.sha256(path.read_bytes()).hexdigest()[:12]
+    return quote(record["avatar"], safe="/") + "?v=" + version
+
+
+def avatar_image(record, root, css_class=""):
+    source = avatar_url(record, root)
+    if not source:
+        return ""
+    attributes = f' class="{css_class}"' if css_class else ""
+    alternate = html.escape(record["name"] + " 的头像", quote=True)
+    return f'<img{attributes} src="{source}" alt="{alternate}" decoding="async">'
+
+
+def add_about(outputs, root, replace_main, site_url="https://seven39c5bb.github.io"):
     if not (root / "content/about.json").exists():
         return
     record = read_about(root)
     validate_about(record, root)
-    avatar = f'<img class="about-avatar" src="{html.escape(record["avatar"], quote=True)}" alt="{html.escape(record["name"])}">' if record["avatar"] else ""
+    shared_avatar = avatar_image(record, root)
+    share_avatar = site_url.rstrip("/") + avatar_url(record, root) if record["avatar"] else ""
+    def update_avatar_meta(match):
+        tag = match.group()
+        content = re.search(r'\bcontent="([^"]*)"', tag)
+        if not content:
+            return tag
+        old_path = unquote(urlsplit(html.unescape(content[1])).path)
+        if "data-profile-avatar" not in tag and old_path not in ("/img/直播1.png", "/img/headImg.jpg", "/img/headImg.png"):
+            return tag
+        tag = tag[:content.start(1)] + html.escape(share_avatar, quote=True) + tag[content.end(1):]
+        return tag if "data-profile-avatar" in tag else tag.replace("<meta", "<meta data-profile-avatar", 1)
+    for name, document in list(outputs.items()):
+        if name.endswith(".html"):
+            document = re.sub(r'<meta\b[^>]*(?:property|name)="(?:og:image|twitter:image)"[^>]*>', update_avatar_meta, document)
+            outputs[name] = re.sub(r'(<div\b[^>]*class="[^\"]*\bavatar-img\b[^\"]*"[^>]*>)\s*(?:<img\b[^>]*>\s*)?(</div>)',
+                                   lambda match: match[1] + shared_avatar + match[2], document)
+    avatar = avatar_image(record, root, "about-avatar")
     blocks = []
     for line in record["body"].splitlines():
         if not line.strip():

@@ -28,6 +28,10 @@ document.addEventListener('DOMContentLoaded', () => {
       btf.overflowPaddingR.add()
       btf.animateIn(document.getElementById('menu-mask'), 'to_show 0.5s')
       document.getElementById('sidebar-menus').classList.add('open')
+      document.querySelectorAll('#sidebar-menus img[data-lazy-src]').forEach(image => {
+        image.src = image.dataset.lazySrc
+        image.removeAttribute('data-lazy-src')
+      })
       mobileSidebarOpen = true
     },
     close: () => {
@@ -826,9 +830,21 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   const lazyloadImg = () => {
+    if (typeof LazyLoad !== 'function') {
+      const loadImages = () => {
+        document.querySelectorAll('img[data-lazy-src]').forEach(image => {
+          image.src = image.dataset.lazySrc
+          image.removeAttribute('data-lazy-src')
+        })
+      }
+      loadImages()
+      btf.addGlobalFn('pjaxComplete', loadImages, 'lazyload')
+      return
+    }
     window.lazyLoadInstance = new LazyLoad({
-      elements_selector: 'img',
-      threshold: 0,
+      elements_selector: 'img[data-lazy-src]',
+      threshold: 300,
+      cancel_on_exit: false,
       data_src: 'lazy-src'
     })
 

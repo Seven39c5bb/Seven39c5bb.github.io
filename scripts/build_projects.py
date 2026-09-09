@@ -48,12 +48,13 @@ def load_projects(root):
     return records
 
 
-def project_card(record, root):
+def project_card(record, root, eager=False):
     title = html.escape(record["title"])
     cover = '<div class="project-cover project-cover-placeholder" aria-hidden="true"><i class="fas fa-gamepad"></i></div>'
     if record.get("cover"):
         cover_class = "project-cover project-cover-steam" if record.get("steam_url") else "project-cover"
-        cover = f'<div class="{cover_class}"><img src="{safe_url(record["cover"], root, "cover")}" alt="{title} 游戏封面" loading="lazy" decoding="async"></div>'
+        loading = "eager" if eager else "lazy"
+        cover = f'<div class="{cover_class}"><img src="{safe_url(record["cover"], root, "cover")}" alt="{title} 游戏封面" loading="{loading}" decoding="async"></div>'
     status = f'<span class="project-status">{html.escape(record["status"])}</span>' if record.get("status") else ""
     tags = "".join(f'<span>{html.escape(tag)}</span>' for tag in record.get("tags", []))
     details = "".join(f'<div><dt>{label}</dt><dd>{html.escape(record[field])}</dd></div>'
@@ -72,7 +73,7 @@ def project_card(record, root):
 
 def add_projects(outputs, root, template, make_page):
     records = load_projects(root)
-    cards = "".join(project_card(record, root) for record in records)
+    cards = "".join(project_card(record, root, eager=index == 0) for index, record in enumerate(records))
     empty = '''<div class="projects-empty"><span class="projects-empty-icon" aria-hidden="true"><i class="fas fa-gamepad"></i></span>
 <h3>下一次冒险，从这里开始</h3><p>作品资料正在整理中，之后会在这里分享游戏画面、开发故事与游玩入口。</p>
 <a class="project-text-link" href="/games/">先看看我的游戏评测 <span aria-hidden="true">→</span></a></div>'''

@@ -49,6 +49,13 @@ async function api(path, payload) {
 async function load() {
   const response = await api('state');
   Object.assign(state, response, {projects: response.projects, about: response.about});
+  const avatarUrl = imageUrl(response.about?.avatar || '');
+  document.querySelectorAll('[data-profile-avatar]').forEach(avatar => {
+    avatar.hidden = !avatarUrl;
+    avatar.alt = `${response.about?.name || 'Seven'} 的头像`;
+    if (avatarUrl) avatar.src = avatarUrl;
+    else avatar.removeAttribute('src');
+  });
   state.needsRestart = !response.server_info || response.server_info.needs_restart || !response.projects || !response.about || !response.appearance || !response.site;
   const warning = select('#service-warning');
   warning.hidden = !state.needsRestart;

@@ -430,6 +430,8 @@ html.home-landing #web_bg::before { background: transparent; }
   animation: none;
 }
 
+.avatar-img:empty { display: none; }
+
 .managed-profile-links {
   display: flex;
   flex-wrap: wrap;

@@ -1,4 +1,5 @@
 import argparse
+import hashlib
 import html
 import json
 import re
@@ -68,6 +69,8 @@ def review_body(record):
 
 
 def shared(document, post_count, tag_count, category_count):
+    version = hashlib.sha256((ROOT / "js/main.js").read_text(encoding="utf-8").encode("utf-8")).hexdigest()[:12]
+    document = re.sub(r'\bsrc="/js/main\.js(?:\?[^"]*)?"', f'src="/js/main.js?v={version}"', document)
     document = re.sub(r'<script\b[^>]*\bsrc="/live2dw/[^"]*"[^>]*>\s*</script>', "", document, flags=re.S)
     document = re.sub(r'<script>\s*L2Dwidget\.init\(.*?</script>', "", document, flags=re.S)
     document = re.sub(
@@ -90,7 +93,7 @@ def make_page(template, title, route, content, description, record=None):
     document = re.sub(r"<title>.*?</title>", lambda match: f"<title>{escaped_title} | Seven39c5bb</title>", document)
     document = re.sub(r'<h1 id="site-title">.*?</h1>', lambda match: f'<h1 id="site-title">{escaped_title}</h1>', document)
     document = re.sub(r"  title: '[^']*',", lambda match: "  title: " + json.dumps(title, ensure_ascii=False).replace("<", r"\u003c") + ",", document)
-    document = re.sub(r'<meta (?:name|property)="(?:description|og:[^"]+|article:[^"]+|twitter:[^"]+)"[^>]*>', "", document)
+    document = re.sub(r'<meta\b[^>]*\b(?:name|property)="(?:description|og:[^"]+|article:[^"]+|twitter:[^"]+)"[^>]*>', "", document)
     document = re.sub(r'<link rel="canonical"[^>]*>', "", document)
     metadata = [
         f'<link rel="canonical" href="{SITE_URL}{route}">',
@@ -232,7 +235,7 @@ def build():
         if relative not in outputs:
             outputs[relative] = path.read_text(encoding="utf-8")
     add_projects(outputs, ROOT, template, make_page)
-    add_about(outputs, ROOT, replace_main)
+    add_about(outputs, ROOT, replace_main, SITE_URL)
     for path, document in list(outputs.items()):
         if path.endswith(".html"):
             outputs[path] = shared(document, post_count, tag_count, category_count)
