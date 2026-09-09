@@ -1,0 +1,52 @@
+:root, [data-theme="light"], [data-theme="dark"] {
+  --site-transition-color: #39c5bb;
+  --site-primary-color: #49b1f5;
+  --site-hover-color: #ff7242;
+  --btn-bg: #49b1f5;
+  --btn-hover-color: #ff7242;
+  --pseudo-hover: #ff7242;
+  --scrollbar-color: #49b1f5;
+  --default-bg-color: #49b1f5;
+  --preloader-bg: #39c5bb;
+  --text-bg-hover: rgba(73, 177, 245, 0.7);
+  --blockquote-bg: rgba(73, 177, 245, 0.1);
+  --hr-border: #49b1f5;
+  --hr-before-color: #49b1f5;
+}
+:root, [data-theme="light"] {
+  --global-bg: #ffffff;
+  --card-bg: #ffffff;
+}
+[data-theme="dark"] {
+  --global-bg: #0d0d0d;
+  --card-bg: #121212;
+}
+body { font-size: 14px; }
+#page-header {
+  transition-duration: 500ms;
+}
+#page-header:not(.not-top-img)::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-color: var(--site-transition-color);
+  opacity: 0;
+  animation: site-header-tint 500ms ease-out;
+}
+@keyframes site-header-tint {
+  from { opacity: 0.85; }
+  to { opacity: 0; }
+}
+#page-header.not-home-page:not(.not-top-img) { height: 400px; }
+#aside-content .card-widget, #recent-posts > .recent-post-item,
+.layout > #page, .layout > #post, .layout > #archive,
+.project-card { border-radius: 8px; }
+#article-container a, .game-review-meta a, .game-back a { color: var(--site-primary-color); }
+#article-container a:hover, #recent-posts > .recent-post-item > .recent-post-info > .article-title:hover { color: var(--site-hover-color); }
+.project-button { background: var(--site-primary-color); }
+.project-button:hover { background: var(--site-hover-color); }
+@media (prefers-reduced-motion: reduce) {
+  #page-header { transition-duration: 0ms; }
+  #page-header::after { animation: none; }
+}

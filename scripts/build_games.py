@@ -6,6 +6,8 @@ import xml.etree.ElementTree as ET
 from pathlib import Path
 
 from build_projects import add_projects
+from build_about import add_about
+from build_appearance import add_appearance
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -84,9 +86,9 @@ def shared(document, post_count, tag_count, category_count):
 def make_page(template, title, route, content, description, record=None):
     document = replace_main(template, content)
     escaped_title = html.escape(title)
-    document = re.sub(r"<title>.*?</title>", f"<title>{escaped_title} | Seven39c5bb</title>", document)
-    document = re.sub(r'<h1 id="site-title">.*?</h1>', f'<h1 id="site-title">{escaped_title}</h1>', document)
-    document = re.sub(r"  title: '[^']*',", "  title: " + json.dumps(title, ensure_ascii=False) + ",", document)
+    document = re.sub(r"<title>.*?</title>", lambda match: f"<title>{escaped_title} | Seven39c5bb</title>", document)
+    document = re.sub(r'<h1 id="site-title">.*?</h1>', lambda match: f'<h1 id="site-title">{escaped_title}</h1>', document)
+    document = re.sub(r"  title: '[^']*',", lambda match: "  title: " + json.dumps(title, ensure_ascii=False).replace("<", r"\u003c") + ",", document)
     document = re.sub(r'<meta (?:name|property)="(?:description|og:[^"]+|article:[^"]+|twitter:[^"]+)"[^>]*>', "", document)
     document = re.sub(r'<link rel="canonical"[^>]*>', "", document)
     metadata = [
@@ -104,6 +106,9 @@ def make_page(template, title, route, content, description, record=None):
         metadata += [f'<meta property="og:image" content="{SITE_URL}{record["cover"]}">',
                      f'<meta property="article:published_time" content="{record["imported"]}T00:00:00+08:00">']
     document = document.replace("</head>", "\n" + "\n".join(metadata) + "\n</head>")
+    if record and not record.get("source_id"):
+        document = document.replace("Notion 原文更新：", "文章更新：").replace("迁移至博客：", "收录至博客：")
+        document = document.replace("保留原文观点与评分，文中的时间表述以原文写作时为准。可能包含剧透。", "个人游玩记录与主观评分。可能包含剧透。")
     return "\n".join(line.rstrip() for line in document.splitlines()) + "\n"
 
 
@@ -114,7 +119,7 @@ def game_card(record):
 <div class="game-card-copy"><span class="game-score">个人评分 {score(record)}</span>
 <h2><a href="{route}">{html.escape(record["title"])}</a></h2>
 <p>{html.escape(excerpt(record))}…</p>
-<span class="game-date">原文更新于 <time datetime="{record["source_updated"]}">{record["source_updated"][:10]}</time></span>
+<span class="game-date">{'原文更新于' if record.get('source_id') else '更新于'} <time datetime="{record["source_updated"]}">{record["source_updated"][:10]}</time></span>
 </div></article>'''
 
 
@@ -131,6 +136,11 @@ def archive_item(title, route, date, label="发表于"):
     return f'''<div class="article-sort-item no-article-cover"><div class="article-sort-item-info"><div class="article-sort-item-time"><i class="far fa-calendar-alt"></i><time datetime="{date}" title="{label} {date}">{date}</time><span> · {label}</span></div><a class="article-sort-item-title" href="{route}" title="{html.escape(title)}">{html.escape(title)}</a></div></div>'''
 
 
+def record_archive(record):
+    return archive_item(record["title"], f'/games/{record["slug"]}/', record["imported"],
+                        "迁移于" if record.get("source_id") else "收录于")
+
+
 def archive_content(title, items):
     return f'<div id="archive"><div class="article-sort-title">{html.escape(title)}</div><div class="article-sort">{items}</div></div>'
 
@@ -138,9 +148,7 @@ def archive_content(title, items):
 def build():
     records = [json.loads(path.read_text(encoding="utf-8")) for path in sorted((ROOT / "content/games").glob("*.json"))]
     records.sort(key=lambda record: record["source_updated"], reverse=True)
-    if not records:
-        raise ValueError("No game reviews found")
-    template = read("about/index.html")
+    template = read("about/index.html").replace('<link rel="stylesheet" href="/css/about.css">\n', "")
     outputs = {}
     for record in records:
         original_date = record["body"].splitlines()[0]
@@ -159,7 +167,7 @@ def build():
 
     outputs["index.html"] = home_landing(read("index.html"))
 
-    entries = "".join(archive_item(record["title"], f'/games/{record["slug"]}/', record["imported"], "迁移于") for record in records)
+    entries = "".join(record_archive(record) for record in records)
     for route, title in [("categories/games", "分类 - 游戏评测"), ("tags/games", "标签 - 游戏评测")]:
         outputs[f"{route}/index.html"] = make_page(template, title, f"/{route}/", archive_content(f"{title} - {len(records)}", entries), title)
 
@@ -181,7 +189,7 @@ def build():
     groups = {}
     for record in records:
         groups.setdefault(record["imported"][:4], []).append(record)
-    migrated = "".join(f'<div class="article-sort-item year">{year}</div>' + "".join(archive_item(record["title"], f'/games/{record["slug"]}/', record["imported"], "迁移于") for record in group) for year, group in sorted(groups.items(), reverse=True))
+    migrated = "".join(f'<div class="article-sort-item year">{year}</div>' + "".join(record_archive(record) for record in group) for year, group in sorted(groups.items(), reverse=True))
     archive = archive.replace('<div class="article-sort">', '<div class="article-sort"><!-- game-archives:start -->' + migrated + '<!-- game-archives:end -->', 1)
     old_count = len(re.findall(r'<a class="article-sort-item-title"', re.sub(r'<!-- game-archives:start -->.*?<!-- game-archives:end -->', "", archive, flags=re.S)))
     post_count = old_count + len(records)
@@ -190,7 +198,7 @@ def build():
     for year, group in groups.items():
         for period in [year] + sorted({record["imported"][:7].replace("-", "/") for record in group}):
             selected = [record for record in group if record["imported"].replace("-", "/").startswith(period)]
-            items = "".join(archive_item(record["title"], f'/games/{record["slug"]}/', record["imported"], "迁移于") for record in selected)
+            items = "".join(record_archive(record) for record in selected)
             route = f"/archives/{period}/"
             title = period.replace("/", "年 ") + ("月" if "/" in period else "年")
             outputs[route.lstrip("/") + "index.html"] = make_page(template, title, route, archive_content(f"迁移文章 - {len(selected)}", items), title + "游戏评测归档")
@@ -214,13 +222,29 @@ def build():
     category_count = len(re.findall(r'class="category-list-link"', outputs["categories/index.html"]))
     for path in ROOT.rglob("*.html"):
         relative = path.relative_to(ROOT).as_posix()
+        if any(part.startswith(".") for part in path.relative_to(ROOT).parts) or relative.startswith("scripts/"):
+            continue
+        if relative.startswith("games/") and relative not in outputs and 'class="game-review"' in path.read_text(encoding="utf-8"):
+            continue
+        if relative.startswith("archives/") and relative not in outputs and "迁移文章 - " in path.read_text(encoding="utf-8"):
+            continue
         if relative not in outputs:
             outputs[relative] = path.read_text(encoding="utf-8")
     add_projects(outputs, ROOT, template, make_page)
+    add_about(outputs, ROOT, replace_main)
     for path, document in list(outputs.items()):
         if path.endswith(".html"):
             outputs[path] = shared(document, post_count, tag_count, category_count)
+    add_appearance(outputs, ROOT)
     return outputs
+
+
+def obsolete_pages(outputs):
+    candidates = [path for path in (ROOT / "games").glob("*/index.html")
+                  if 'class="game-review"' in path.read_text(encoding="utf-8")]
+    candidates += [path for path in (ROOT / "archives").rglob("index.html")
+                   if "迁移文章 - " in path.read_text(encoding="utf-8")]
+    return [path for path in candidates if path.relative_to(ROOT).as_posix() not in outputs]
 
 
 if __name__ == "__main__":
@@ -228,7 +252,8 @@ if __name__ == "__main__":
     parser.add_argument("--check", action="store_true", help="Verify committed output matches the content snapshots.")
     arguments = parser.parse_args()
     stale = []
-    for filename, content in build().items():
+    outputs = build()
+    for filename, content in outputs.items():
         destination = ROOT / filename
         if destination.exists() and destination.read_text(encoding="utf-8") == content:
             continue
@@ -236,6 +261,10 @@ if __name__ == "__main__":
         if not arguments.check:
             destination.parent.mkdir(parents=True, exist_ok=True)
             destination.write_text(content, encoding="utf-8", newline="\n")
+    for destination in obsolete_pages(outputs):
+        stale.append(destination.relative_to(ROOT).as_posix())
+        if not arguments.check:
+            destination.unlink()
     if arguments.check and stale:
         raise SystemExit("Out-of-date pages: " + ", ".join(stale))
     print("All game-review pages are up to date." if arguments.check else f"Updated {len(stale)} files.")

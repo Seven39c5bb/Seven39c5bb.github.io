@@ -3461,7 +3461,7 @@ figure.highlight pre .javascript .function {
 #page-header {
   position: relative;
   width: 100%;
-  background-color: #49b1f5;
+  background-color: var(--site-transition-color, #39c5bb);
   background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;
