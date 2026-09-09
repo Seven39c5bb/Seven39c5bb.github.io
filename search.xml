@@ -233,6 +233,15 @@
     </tags>
   </entry>
   <entry>
+    <title>Goldenegg · 金蛋</title>
+    <link href="/projects/#goldenegg" />
+    <url>/projects/#goldenegg</url>
+    <content type="html">一款以敲金蛋、揭晓惊喜为核心的多人互动游戏原型。通过房间邀请码相聚，轮流点击金蛋，在逐步开裂与破壳动画中揭晓随机物品。手绘风格的金蛋与角色，搭配敲击反馈和物品展示，让简单的点击也充满期待。目前仍在开发中。</content>
+    <tags>
+      <tag>游戏作品</tag>
+    </tags>
+  </entry>
+  <entry>
     <title>关于 Seven</title>
     <link href="/about/" />
     <url>/about/</url>

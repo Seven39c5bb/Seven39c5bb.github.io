@@ -16,5 +16,14 @@
     "tags": ["钓鱼", "收集", "Windows"],
     "cover": "/img/projects/fish-come/cover.png",
     "itch_url": "https://seven39c5bb.itch.io/fish-come"
+  },
+  {
+    "slug": "goldenegg",
+    "title": "Goldenegg · 金蛋",
+    "description": "一款以敲金蛋、揭晓惊喜为核心的多人互动游戏原型。通过房间邀请码相聚，轮流点击金蛋，在逐步开裂与破壳动画中揭晓随机物品。手绘风格的金蛋与角色，搭配敲击反馈和物品展示，让简单的点击也充满期待。目前仍在开发中。",
+    "status": "开发中原型",
+    "tags": ["多人联机", "轮流敲蛋", "随机揭晓", "手绘风格"],
+    "engine": "Unity · C#",
+    "cover": "/img/projects/goldenegg/cover.png"
   }
 ]
